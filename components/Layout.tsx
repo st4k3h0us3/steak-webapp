@@ -1,10 +1,10 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { Global } from "@emotion/react";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 
 import Navbar from "./Navbar";
 
-const Layout: FC<{ children?: ReactNode }> = ({ children }) => {
+const Layout: FC = ({ children }) => {
   return (
     <Flex height="100vh" direction="column">
       <Global
