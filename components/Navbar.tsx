@@ -11,7 +11,7 @@ const Navbar: FC = () => {
         <Box flexShrink={0}>
           <NextLink href="/" passHref>
             <a>
-              <Image src="/steak-logo.svg" alt="Steak Logo"></Image>
+              <Image src="/steak.svg" alt="Steak"></Image>
             </a>
           </NextLink>
         </Box>
