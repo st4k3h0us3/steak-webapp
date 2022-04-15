@@ -10,7 +10,7 @@ import WalletConnect from "./WalletConnect";
 const Navbar: FC = () => {
   const { status } = useWallet();
   return (
-    <Container maxW="container.xl" px={["6", null, "12"]} pt="8" position="relative" centerContent>
+    <Container maxW="container.lg" pt="4" px="4">
       <Flex w="100%" justify="space-between" align="center">
         <Box flexShrink={0}>
           <NextLink href="/" passHref>

@@ -17,7 +17,7 @@ const styles = {
       position: "static",
       p: "3",
       borderWidth: "1px",
-      borderColor: "black",
+      borderColor: "brand.black",
       borderRadius: "full",
       _focus: {
         boxShadow: "none",

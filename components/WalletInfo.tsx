@@ -23,7 +23,7 @@ const WalletInfoButtons: FC = () => {
     <PopoverWrapper
       title="My wallet"
       triggerElement={() => (
-        <Button type="button" bg="none" _hover={{ bg: "none" }}>
+        <Button type="button" bg="none" p="0" _hover={{ bg: "none" }}>
           <Flex color="white" justify="center">
             <Box
               color="white"
@@ -82,7 +82,9 @@ const WalletInfoButtons: FC = () => {
             ml="6"
             my="auto"
             isExternal
-            href={`https://terrasco.pe/${CHAIN_TO_FINDER_INFO[wallet.network.chainID]}/address/${wallet.terraAddress}`}
+            href={`https://terrasco.pe/${CHAIN_TO_FINDER_INFO[wallet.network.chainID]}/address/${
+              wallet.terraAddress
+            }`}
             _hover={{ textDecoration: "none" }}
           >
             <HStack>
@@ -95,7 +97,7 @@ const WalletInfoButtons: FC = () => {
         </Flex>
       </Flex>
       <Box mt="6">
-        <Button type="button" variant="danger" isFullWidth onClick={disconnect}>
+        <Button type="button" variant="disconnect" isFullWidth onClick={disconnect}>
           Disconnect
         </Button>
       </Box>

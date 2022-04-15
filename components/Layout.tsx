@@ -1,12 +1,13 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import { Global } from "@emotion/react";
 import { FC } from "react";
 
 import Navbar from "./Navbar";
+import Footer from "components/Footer";
 
 const Layout: FC = ({ children }) => {
   return (
-    <Flex height="100vh" direction="column">
+    <Flex minHeight="100vh" direction="column">
       <Global
         styles={{
           "html,body": {
@@ -15,14 +16,14 @@ const Layout: FC = ({ children }) => {
             position: "relative",
           },
           body: {
+            color: "#312b26",
             backgroundColor: "#f5d9c0",
           },
         }}
       ></Global>
-      <Box>
-        <Navbar />
-      </Box>
-      <Box flex="1">{children}</Box>
+      <Navbar />
+      {children}
+      <Footer />
     </Flex>
   );
 };

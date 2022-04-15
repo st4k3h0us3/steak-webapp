@@ -1,6 +1,6 @@
 const button = {
   variants: {
-    danger: {
+    disconnect: {
       outline: "none",
       borderRadius: "full",
       fontWeight: "500",
