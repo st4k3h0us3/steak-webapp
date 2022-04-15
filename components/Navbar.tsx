@@ -11,14 +11,14 @@ const Navbar: FC = () => {
         <Box flexShrink={0}>
           <NextLink href="/" passHref>
             <a>
-              <Image src="/steak.svg" alt="Steak"></Image>
+              <Image src="/steak.svg" alt="Steak" />
             </a>
           </NextLink>
         </Box>
         <Box flex="1">
           <HStack flex="1" px="16" spacing="12">
-            <NavbarLink text="My Steak" href="/"></NavbarLink>
-            <NavbarLink text="Protocol Stats" href="stats" underConstruction={true}></NavbarLink>
+            <NavbarLink text="My Steak" href="/" />
+            <NavbarLink text="Protocol Stats" href="stats" underConstruction={true} />
           </HStack>
         </Box>
       </Flex>
