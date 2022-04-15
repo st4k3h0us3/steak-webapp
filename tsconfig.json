@@ -4,7 +4,7 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": false,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
@@ -16,12 +16,12 @@
     "baseUrl": ".",
     "paths": {
       "*": ["/*"],
-      "constants/*": ["constants/*"],
       "components/*": ["components/*"],
+      "constants/*": ["constants/*"],
       "pages/*": ["pages/*"]
     },
     "incremental": true
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
 }

@@ -1,6 +1,12 @@
 import { extendTheme } from "@chakra-ui/react";
 
-const defaultSansSerif = "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif";
+import Button from "./button";
+import Popover from "./popover";
+import Modal from "./modal";
+import Text from "./text";
+
+const defaultSansSerif =
+  "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif";
 const defaultEmoji = "Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji";
 
 export default extendTheme({
@@ -9,6 +15,12 @@ export default extendTheme({
     body: `Urbanist,${defaultSansSerif},${defaultEmoji}`,
     mono: "Menlo, monospace",
   },
+  components: {
+    Button,
+    Popover,
+    Modal,
+    Text,
+  },
   colors: {
     brand: {
       darkerBrown: "#a08b77",
@@ -16,6 +28,20 @@ export default extendTheme({
       lightBrown: "#f5d9c0",
       lighterBrown: "#e4d5c8",
       red: "#d9474b",
+    },
+  },
+  textStyles: {
+    minibutton: {
+      fontWeight: "bolder",
+      fontSize: "12px",
+      lineHeight: "1.2",
+      letterSpacing: "0.18rem",
+      textTransform: "uppercase",
+    },
+    small: {
+      fontWeight: "medium",
+      fontSize: "sm",
+      lineHeight: "shorter",
     },
   },
 });
