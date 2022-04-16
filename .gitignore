@@ -5,6 +5,10 @@
 
 # next.js
 /.next/
+/out/
+
+#IDE
+.vscode
 
 # misc
 .DS_Store
