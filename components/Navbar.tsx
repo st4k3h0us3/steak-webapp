@@ -22,7 +22,7 @@ const Navbar: FC = () => {
         <Box flex="1">
           <HStack flex="1" px="16" spacing="12">
             <NavbarLink text="My Steak" href="/" />
-            <NavbarLink text="Protocol Stats" href="/stats" underConstruction={true} />
+            <NavbarLink text="Protocol Stats" href="/stats" />
           </HStack>
         </Box>
         <HStack spacing="5" justify="flex-end">

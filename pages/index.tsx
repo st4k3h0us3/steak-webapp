@@ -4,7 +4,6 @@ import Head from "next/head";
 import { NextPage } from "next";
 
 import MySteak from "components/MySteak";
-import Overview from "components/Overview";
 import UnbondQueue from "components/UnbondQueue";
 
 const IndexPage: NextPage = () => {
@@ -15,7 +14,6 @@ const IndexPage: NextPage = () => {
       </Head>
       <Container maxWidth="container.lg" px="6">
         <MySteak />
-        <Overview />
         <UnbondQueue />
       </Container>
     </>
