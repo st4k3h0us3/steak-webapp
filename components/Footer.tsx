@@ -4,7 +4,7 @@ import { FC } from "react";
 const Footer: FC = () => {
   return (
     <Box w="100%" color="white" bg="brand.darkBrown">
-      <Container maxW="container.lg" py="12" px="6">
+      <Container maxW="900px" py="12" px="6">
         <Box>
           <p style={{ marginBottom: "1rem", fontWeight: 800 }}>About</p>
           <p style={{ marginBottom: "1rem" }}>

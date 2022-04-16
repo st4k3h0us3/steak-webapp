@@ -8,7 +8,7 @@ const Overview: FC = () => {
   return (
     <>
       <Header text="Overview" />
-      <SimpleGrid minChildWidth="300px" spacing="10px" mb="6">
+      <SimpleGrid minChildWidth="250px" spacing="10px" mb="6">
         <OverviewItem
           primaryText="$1,234,567,890"
           secondaryText="(123,456 LUNA)"

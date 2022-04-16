@@ -1,4 +1,4 @@
-import { Container, Flex, Box, Image, HStack } from "@chakra-ui/react";
+import { Flex, Box, Image, HStack } from "@chakra-ui/react";
 import { useWallet, WalletStatus } from "@terra-money/wallet-provider";
 import { FC } from "react";
 import NextLink from "next/link";
@@ -10,7 +10,7 @@ import WalletConnect from "./WalletConnect";
 const Navbar: FC = () => {
   const { status } = useWallet();
   return (
-    <Container maxW="container.lg" pt="4" px="4">
+    <Box w="100%" pt="4">
       <Flex w="100%" justify="space-between" align="center">
         <Box flexShrink={0}>
           <NextLink href="/" passHref>
@@ -29,7 +29,7 @@ const Navbar: FC = () => {
           {status === WalletStatus.WALLET_CONNECTED ? <WalletInfo /> : <WalletConnect />}
         </HStack>
       </Flex>
-    </Container>
+    </Box>
   );
 };
 
