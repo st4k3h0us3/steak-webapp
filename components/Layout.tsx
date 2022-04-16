@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Spacer } from "@chakra-ui/react";
 import { Global } from "@emotion/react";
 import { FC } from "react";
 
@@ -23,6 +23,7 @@ const Layout: FC = ({ children }) => {
       ></Global>
       <Navbar />
       {children}
+      <Spacer />
       <Footer />
     </Flex>
   );
