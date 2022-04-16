@@ -1,4 +1,5 @@
 import {
+  chakra,
   useDisclosure,
   Flex,
   Box,
@@ -29,7 +30,9 @@ const Navbar: FC = () => {
     <Box w="100%" py="6">
       <Flex w="100%" justify="space-between" align="center">
         <NextLink href="/" passHref>
-          <SteakIcon w={["3rem", "4rem"]} h={["3rem", "4rem"]} />
+          <chakra.a>
+            <SteakIcon w={["3rem", "4rem"]} h={["3rem", "4rem"]} />
+          </chakra.a>
         </NextLink>
         <HStack display={["none", null, null, "block"]} flex="1" px="16" spacing="12">
           <NavbarLink text="My Steak" href="/" />
