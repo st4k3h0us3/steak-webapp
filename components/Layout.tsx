@@ -21,7 +21,7 @@ const Layout: FC = ({ children }) => {
           },
         }}
       ></Global>
-      <Container maxW="900px" mx="auto">
+      <Container maxW="900px" mx="auto" mb="20">
         <Navbar />
         {children}
       </Container>

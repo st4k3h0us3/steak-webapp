@@ -1,4 +1,4 @@
-import { Box, Text, Link } from "@chakra-ui/react";
+import { Box, Flex, Text, Link } from "@chakra-ui/react";
 import { FC } from "react";
 
 import Header from "./Header";
@@ -21,14 +21,14 @@ const MySteak: FC = () => {
         <Text color="brand.lightBrown" mt="5">
           My staked STEAK
         </Text>
-        <Text mt="10">
+        <Flex direction={["column", "row", null, null]} justify="center" mt="10">
           <Link m="1" variant="bondOrUnbond" href="/bond">
             Stake LUNA
           </Link>
           <Link m="1" variant="bondOrUnbond" href="/unbond">
             Unstake STEAK
           </Link>
-        </Text>
+        </Flex>
       </Box>
     </>
   );

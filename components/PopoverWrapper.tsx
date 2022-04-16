@@ -25,11 +25,11 @@ const PopoverWrapper: FC<Props> = ({ title, triggerElement, children, ...props }
       <PopoverContent>
         <Flex align="center" justify="space-between">
           <PopoverHeader>{title}</PopoverHeader>
-          <PopoverCloseButton position="static" width="3rem" height="3rem">
+          <PopoverCloseButton position="static" width="2rem" height="2rem" borderRadius="full">
             <CloseIcon w="2rem" h="2rem" />
           </PopoverCloseButton>
         </Flex>
-        <PopoverBody>{children}</PopoverBody>
+        <PopoverBody w="100%">{children}</PopoverBody>
       </PopoverContent>
     </Popover>
   );

@@ -9,7 +9,7 @@ import { CHAIN_TO_FINDER_INFO } from "../constants";
 import PopoverWrapper from "./PopoverWrapper";
 import TerraIcon from "./TerraIcon";
 
-function truncate(text: string = "", [h, t]: number[] = [10, 6]) {
+function truncate(text: string = "", [h, t]: number[] = [4, 4]) {
   const head = text.slice(0, h);
   const tail = text.slice(-1 * t, text.length);
   return text.length > h + t ? [head, tail].join("...") : text;
@@ -63,7 +63,7 @@ const WalletInfoButtons: FC = () => {
         </Button>
       )}
     >
-      <Flex direction="column" justify="center" w={["100%", "96"]}>
+      <Flex direction="column" justify="center">
         <VStack mt={6} align="flex-start">
           <Text textStyle="minibutton">My Address</Text>
           <Text textStyle="small" variant="dimmed">

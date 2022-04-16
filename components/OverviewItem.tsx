@@ -5,10 +5,9 @@ type Props = {
   primaryText: string;
   secondaryText: string;
   additionalText: string;
-  textAlign: "left" | "right" | "center";
 };
 
-const OverviewItem: FC<Props> = ({ primaryText, secondaryText, additionalText, textAlign }) => {
+const OverviewItem: FC<Props> = ({ primaryText, secondaryText, additionalText }) => {
   return (
     <Box
       color="black"
@@ -17,7 +16,7 @@ const OverviewItem: FC<Props> = ({ primaryText, secondaryText, additionalText, t
       pt="5"
       borderRadius="2xl"
       position="relative"
-      textAlign={textAlign}
+      textAlign="center"
     >
       <Text fontSize="3xl" fontWeight="800">
         {primaryText}

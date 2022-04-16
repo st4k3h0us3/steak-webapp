@@ -29,13 +29,13 @@ const UnbondQueueItem: FC<Props> = ({ status, amount, startTime, finishTime }) =
       <Td borderBottom="none" py="6" borderLeftRadius="2xl">
         {capitalizeFirstLetter(status)}
       </Td>
-      <Td borderBottom="none" py="6">
+      <Td borderBottom="none" py="6" minW="200px">
         {amount}
       </Td>
-      <Td borderBottom="none" py="6">
+      <Td borderBottom="none" py="6" minW="230px">
         {startTime.toLocaleString()}
       </Td>
-      <Td borderBottom="none" py="6" borderRightRadius="2xl">
+      <Td borderBottom="none" py="6" minW="230px" borderRightRadius="2xl">
         {finishTimeItem}
       </Td>
     </Tr>

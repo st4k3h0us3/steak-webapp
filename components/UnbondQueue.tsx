@@ -1,4 +1,4 @@
-import { Table, Thead, Tbody, Tr, Th } from "@chakra-ui/react";
+import { Box, Table, Thead, Tbody, Tr, Th } from "@chakra-ui/react";
 import { FC } from "react";
 
 import Header from "./Header";
@@ -33,25 +33,27 @@ const UnbondQueue: FC = () => {
   return (
     <>
       <Header text="My Unbonding Requests" pb="0" />
-      <Table style={{ borderCollapse: "separate", borderSpacing: "0 0.6rem" }} mb="20">
-        <Thead>
-          <Tr>
-            <Th borderBottom="none" bg="brand.darkBrown" color="white" borderLeftRadius="2xl">
-              Status
-            </Th>
-            <Th borderBottom="none" bg="brand.darkBrown" color="white">
-              Amount
-            </Th>
-            <Th borderBottom="none" bg="brand.darkBrown" color="white">
-              Start Time
-            </Th>
-            <Th borderBottom="none" bg="brand.darkBrown" color="white" borderRightRadius="2xl">
-              Finish Time
-            </Th>
-          </Tr>
-        </Thead>
-        <Tbody>{items}</Tbody>
-      </Table>
+      <Box overflowX="auto">
+        <Table style={{ borderCollapse: "separate", borderSpacing: "0 0.6rem" }}>
+          <Thead>
+            <Tr>
+              <Th borderBottom="none" bg="brand.darkBrown" color="white" borderLeftRadius="2xl">
+                Status
+              </Th>
+              <Th borderBottom="none" bg="brand.darkBrown" color="white">
+                Amount
+              </Th>
+              <Th borderBottom="none" bg="brand.darkBrown" color="white">
+                Start Time
+              </Th>
+              <Th borderBottom="none" bg="brand.darkBrown" color="white" borderRightRadius="2xl">
+                Finish Time
+              </Th>
+            </Tr>
+          </Thead>
+          <Tbody>{items}</Tbody>
+        </Table>
+      </Box>
     </>
   );
 };

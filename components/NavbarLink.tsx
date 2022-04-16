@@ -1,16 +1,17 @@
 import { chakra } from "@chakra-ui/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FC } from "react";
+import { FC, MouseEventHandler } from "react";
 import * as csstype from "csstype";
 
 type Props = {
   text: string;
   href: string;
+  onClick?: MouseEventHandler<HTMLAnchorElement>;
   underConstruction?: boolean;
 };
 
-const NavbarLink: FC<Props> = ({ text, href, underConstruction = false }) => {
+const NavbarLink: FC<Props> = ({ text, href, onClick, underConstruction = false }) => {
   const { asPath } = useRouter();
 
   const defaultStyle = {
@@ -41,9 +42,9 @@ const NavbarLink: FC<Props> = ({ text, href, underConstruction = false }) => {
     <Link href={href} passHref>
       <chakra.a
         transition="0.2s all"
-        px="2"
-        py="8"
+        p="2"
         whiteSpace="nowrap"
+        onClick={onClick}
         {...defaultStyle}
         {...wrapperStyle}
       >
