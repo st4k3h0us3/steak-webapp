@@ -1,8 +1,9 @@
-import { Flex, Box, Image, HStack } from "@chakra-ui/react";
+import { Flex, Box, HStack } from "@chakra-ui/react";
 import { useWallet, WalletStatus } from "@terra-money/wallet-provider";
 import { FC } from "react";
 import NextLink from "next/link";
 
+import SteakIcon from "./SteakIcon";
 import NavbarLink from "./NavbarLink";
 import WalletInfo from "./WalletInfo";
 import WalletConnect from "./WalletConnect";
@@ -15,7 +16,7 @@ const Navbar: FC = () => {
         <Box flexShrink={0}>
           <NextLink href="/" passHref>
             <a>
-              <Image src="/steak.svg" alt="Steak" />
+              <SteakIcon w="4rem" h="4rem" />
             </a>
           </NextLink>
         </Box>

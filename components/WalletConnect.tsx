@@ -3,6 +3,7 @@ import { useWallet, ConnectType } from "@terra-money/wallet-provider";
 import { FC } from "react";
 
 import Modal from "./Modal";
+import TerraIcon from "./TerraIcon";
 
 type WalletOptions = {
   type: string;
@@ -89,7 +90,7 @@ const WalletConnectButton: FC = () => {
         borderRadius="full"
       >
         <HStack spacing="3">
-          <Image src="/terra.svg" alt="Terra" width="1.25rem" height="1.25rem" />
+          <TerraIcon width="1.25rem" height="1.25rem" />
           <Text fontSize="md">Connect your wallet</Text>
         </HStack>
         <Modal isOpen={isOpen} onClose={onClose} title="Connect to a wallet">

@@ -1,5 +1,5 @@
 import { formatAmount, useBalance } from "@arthuryeti/terra";
-import { Box, Button, Center, Link, Flex, HStack, VStack, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Link, Flex, HStack, VStack, Text } from "@chakra-ui/react";
 import { CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import { useWallet, useConnectedWallet } from "@terra-money/wallet-provider";
 import copy from "copy-to-clipboard";
@@ -7,6 +7,7 @@ import { FC } from "react";
 
 import { CHAIN_TO_FINDER_INFO } from "../constants";
 import PopoverWrapper from "./PopoverWrapper";
+import TerraIcon from "./TerraIcon";
 
 function truncate(text: string = "", [h, t]: number[] = [10, 6]) {
   const head = text.slice(0, h);
@@ -35,7 +36,7 @@ const WalletInfoButtons: FC = () => {
               mr="0.5"
             >
               <HStack spacing="3">
-                <Image src="/terra.svg" alt="Terra" width="1.25rem" height="1.25rem" />
+                <TerraIcon w="1.25rem" h="1.25rem" />
                 <Text fontSize="md" color="white">
                   {truncate(wallet?.terraAddress)}
                 </Text>

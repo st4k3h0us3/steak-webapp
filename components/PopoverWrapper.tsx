@@ -1,7 +1,6 @@
 import React, { FC, ReactNode } from "react";
 import {
   Flex,
-  Image,
   Popover,
   PopoverContent,
   PopoverHeader,
@@ -10,6 +9,8 @@ import {
   PopoverTrigger,
   PopoverProps,
 } from "@chakra-ui/react";
+
+import CloseIcon from "./CloseIcon";
 
 type Props = {
   title?: string;
@@ -25,7 +26,7 @@ const PopoverWrapper: FC<Props> = ({ title, triggerElement, children, ...props }
         <Flex align="center" justify="space-between">
           <PopoverHeader>{title}</PopoverHeader>
           <PopoverCloseButton position="static" width="3rem" height="3rem">
-            <Image src="/close.svg" alt="Close" w="100" h="100" />
+            <CloseIcon w="2rem" h="2rem" />
           </PopoverCloseButton>
         </Flex>
         <PopoverBody>{children}</PopoverBody>
