@@ -1,14 +1,17 @@
 import Head from "next/head";
 import { NextPage } from "next";
 
-const IndexPage: NextPage = () => {
+import BondForm from "components/BondForm";
+
+const BondPage: NextPage = () => {
   return (
     <>
       <Head>
         <title>Steak | Bond</title>
       </Head>
+      <BondForm />
     </>
   );
 };
 
-export default IndexPage;
+export default BondPage;

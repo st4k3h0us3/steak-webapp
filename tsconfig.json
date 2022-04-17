@@ -18,7 +18,9 @@
       "*": ["/*"],
       "components/*": ["components/*"],
       "constants/*": ["constants/*"],
-      "pages/*": ["pages/*"]
+      "pages/*": ["pages/*"],
+      "theme/*": ["theme/*"],
+      "types/*": ["types/*"]
     },
     "incremental": true
   },

@@ -99,7 +99,7 @@ const WalletInfoButtons: FC = () => {
         </Flex>
       </Flex>
       <Box mt="6">
-        <Button type="button" variant="disconnect" isFullWidth onClick={disconnect}>
+        <Button type="button" variant="primary" isFullWidth onClick={disconnect}>
           Disconnect
         </Button>
       </Box>

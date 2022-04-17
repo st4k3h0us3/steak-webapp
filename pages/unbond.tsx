@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { NextPage } from "next";
 
-const IndexPage: NextPage = () => {
+const UnbondPage: NextPage = () => {
   return (
     <>
       <Head>
@@ -11,4 +11,4 @@ const IndexPage: NextPage = () => {
   );
 };
 
-export default IndexPage;
+export default UnbondPage;

@@ -24,26 +24,26 @@ import WalletInfo from "./WalletInfo";
 import WalletConnect from "./WalletConnect";
 
 type Props = {
-  returnText?: string;
+  isBack: boolean;
   onClick?: React.MouseEventHandler;
 };
 
-const NavbarLinks: FC<Props> = ({ returnText }) => {
+const NavbarLinks: FC<Props> = ({ isBack = false }) => {
   return (
     <HStack display={["none", null, null, "block"]} flex="1" px="16" spacing="12">
-      {returnText ? <NavbarReturn text={returnText} /> : null}
-      {returnText ? null : <NavbarLink text="My Steak" href="/" />}
-      {returnText ? null : <NavbarLink text="Protocol Stats" href="/stats" />}
+      {isBack ? <NavbarReturn /> : null}
+      {isBack ? null : <NavbarLink text="My Steak" href="/" />}
+      {isBack ? null : <NavbarLink text="Protocol Stats" href="/stats" />}
     </HStack>
   );
 };
 
-const SidebarLinks: FC<Props> = ({ returnText, onClick }) => {
+const SidebarLinks: FC<Props> = ({ isBack = false, onClick }) => {
   return (
     <VStack align="flex-start" mt="20">
-      {returnText ? <NavbarReturn onClick={onClick} text={returnText} /> : null}
-      {returnText ? null : <NavbarLink onClick={onClick} text="My Steak" href="/" />}
-      {returnText ? null : <NavbarLink onClick={onClick} text="Protocol Stats" href="/stats" />}
+      {isBack ? <NavbarReturn onClick={onClick} /> : null}
+      {isBack ? null : <NavbarLink onClick={onClick} text="My Steak" href="/" />}
+      {isBack ? null : <NavbarLink onClick={onClick} text="Protocol Stats" href="/stats" />}
     </VStack>
   );
 };
@@ -53,11 +53,7 @@ const Navbar: FC = () => {
   const { asPath } = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
-
-  let returnText: string;
-  if (asPath === "/bond") returnText = "Stake LUNA";
-  else if (asPath === "/unbond") returnText = "Unstake STEAK";
-  else if (asPath === "/withdraw-unbonded") returnText = "Withdraw Unbonded LUNA";
+  const isBack = ["/bond", "/unbond", "/withdraw-unbonded"].includes(asPath);
 
   return (
     <Box w="100%" py="6">
@@ -67,7 +63,7 @@ const Navbar: FC = () => {
             <SteakIcon w={["3rem", "4rem"]} h={["3rem", "4rem"]} />
           </chakra.a>
         </NextLink>
-        <NavbarLinks returnText={returnText} />
+        <NavbarLinks isBack={isBack} />
         <HStack justify="flex-end">
           {status === WalletStatus.WALLET_CONNECTED ? <WalletInfo /> : <WalletConnect />}
           <Button
@@ -101,7 +97,7 @@ const Navbar: FC = () => {
                 <CloseIcon color="white" width="1.5rem" height="1.5rem" />
               </Button>
             </Flex>
-            <SidebarLinks returnText={returnText} onClick={onClose} />
+            <SidebarLinks isBack={isBack} onClick={onClose} />
           </Flex>
         </DrawerContent>
       </Drawer>

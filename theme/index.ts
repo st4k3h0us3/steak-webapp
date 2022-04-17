@@ -6,7 +6,7 @@ import Popover from "./popover";
 import Modal from "./modal";
 import Text from "./text";
 
-const defaultSansSerif ="-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif";
+const defaultSansSerif = "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif";
 const defaultEmoji = "Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji";
 
 export default extendTheme({
@@ -29,7 +29,7 @@ export default extendTheme({
       lightBrown: "#f5d9c0",
       lighterBrown: "#e4d5c8",
       red: "#d9474b",
-      black: "#312b26"
+      black: "#312b26",
     },
   },
   textStyles: {

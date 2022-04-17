@@ -4,7 +4,7 @@ import { NextPage } from "next";
 
 import Overview from "components/Overview";
 
-const ProtocolStatsPage: NextPage = () => {
+const StatsPage: NextPage = () => {
   return (
     <>
       <Head>
@@ -20,4 +20,4 @@ const ProtocolStatsPage: NextPage = () => {
   );
 };
 
-export default ProtocolStatsPage;
+export default StatsPage;

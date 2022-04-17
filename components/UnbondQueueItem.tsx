@@ -18,7 +18,7 @@ const UnbondQueueItem: FC<Props> = ({ status, amount, startTime, finishTime }) =
 
   const finishTimeItem =
     currentTime >= finishTime ? (
-      <NextLink href="/withdraw-unbonded" passHref>
+      <NextLink href="/withdraw" passHref>
         <chakra.a
           transition="0.2s all"
           outline="none"
