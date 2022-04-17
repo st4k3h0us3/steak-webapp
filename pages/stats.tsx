@@ -1,5 +1,4 @@
 import { Box, Text } from "@chakra-ui/react";
-import React from "react";
 import Head from "next/head";
 import { NextPage } from "next";
 

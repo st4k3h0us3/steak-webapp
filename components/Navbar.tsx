@@ -13,18 +13,51 @@ import {
 import { useWallet, WalletStatus } from "@terra-money/wallet-provider";
 import React, { FC } from "react";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 
 import BurgerIcon from "./BurgerIcon";
 import CloseIcon from "./CloseIcon";
 import SteakIcon from "./SteakIcon";
 import NavbarLink from "./NavbarLink";
+import NavbarReturn from "./NavbarReturn"
 import WalletInfo from "./WalletInfo";
 import WalletConnect from "./WalletConnect";
 
+type Props = {
+  returnText?: string;
+  onClick?: React.MouseEventHandler;
+};
+
+const NavbarLinks: FC<Props> = ({ returnText }) => {
+  return (
+    <HStack display={["none", null, null, "block"]} flex="1" px="16" spacing="12">
+      {returnText ? <NavbarReturn text={returnText} /> : null}
+      {returnText ? null : <NavbarLink text="My Steak" href="/" />}
+      {returnText ? null : <NavbarLink text="Protocol Stats" href="/stats" />}
+    </HStack>
+  );
+};
+
+const SidebarLinks: FC<Props> = ({ returnText, onClick }) => {
+  return (
+    <VStack align="flex-start" mt="20">
+      {returnText ? <NavbarReturn onClick={onClick} text={returnText} /> : null}
+      {returnText ? null : <NavbarLink onClick={onClick} text="My Steak" href="/" />}
+      {returnText ? null : <NavbarLink onClick={onClick} text="Protocol Stats" href="/stats" />}
+    </VStack>
+  );
+};
+
 const Navbar: FC = () => {
   const { status } = useWallet();
+  const { asPath } = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
+
+  let returnText: string;
+  if (asPath === "/bond") returnText = "Stake LUNA";
+  else if (asPath === "/unbond") returnText = "Unstake STEAK";
+  else if (asPath === "/withdraw-unbonded") returnText = "Withdraw Unbonded LUNA";
 
   return (
     <Box w="100%" py="6">
@@ -34,10 +67,7 @@ const Navbar: FC = () => {
             <SteakIcon w={["3rem", "4rem"]} h={["3rem", "4rem"]} />
           </chakra.a>
         </NextLink>
-        <HStack display={["none", null, null, "block"]} flex="1" px="16" spacing="12">
-          <NavbarLink text="My Steak" href="/" />
-          <NavbarLink text="Protocol Stats" href="/stats" />
-        </HStack>
+        <NavbarLinks returnText={returnText} />
         <HStack justify="flex-end">
           {status === WalletStatus.WALLET_CONNECTED ? <WalletInfo /> : <WalletConnect />}
           <Button
@@ -71,10 +101,7 @@ const Navbar: FC = () => {
                 <CloseIcon color="white" width="1.5rem" height="1.5rem" />
               </Button>
             </Flex>
-            <VStack align="flex-start" mt="20">
-              <NavbarLink onClick={onClose} text="My Steak" href="/" />
-              <NavbarLink onClick={onClose} text="Protocol Stats" href="/stats" />
-            </VStack>
+            <SidebarLinks returnText={returnText} onClick={onClose} />
           </Flex>
         </DrawerContent>
       </Drawer>
