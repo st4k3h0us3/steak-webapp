@@ -7,7 +7,8 @@ import { FC } from "react";
 
 import { CHAIN_TO_FINDER_INFO } from "../constants";
 import PopoverWrapper from "./PopoverWrapper";
-import TerraIcon from "./TerraIcon";
+import WalletIcon from "./WalletIcon";
+import WalletNetwork from "./WalletNetwork";
 
 function truncate(text: string = "", [h, t]: number[] = [4, 4]) {
   const head = text.slice(0, h);
@@ -18,6 +19,7 @@ function truncate(text: string = "", [h, t]: number[] = [4, 4]) {
 const WalletInfoButtons: FC = () => {
   const { disconnect } = useWallet();
   const wallet = useConnectedWallet();
+  const network = CHAIN_TO_FINDER_INFO[wallet.network.chainID];
   const balance = useBalance("uusd");
 
   return (
@@ -25,6 +27,7 @@ const WalletInfoButtons: FC = () => {
       title="My wallet"
       triggerElement={() => (
         <Button type="button" bg="none" p="0" _hover={{ bg: "none" }}>
+          <WalletNetwork network={network} />
           <Flex color="white" justify="center">
             <Box
               color="white"
@@ -36,7 +39,7 @@ const WalletInfoButtons: FC = () => {
               mr="0.5"
             >
               <HStack spacing="3">
-                <TerraIcon w="1.25rem" h="1.25rem" />
+                <WalletIcon w="1.25rem" h="1.25rem" />
                 <Text fontSize="md" color="white">
                   {truncate(wallet?.terraAddress)}
                 </Text>
@@ -83,9 +86,7 @@ const WalletInfoButtons: FC = () => {
             ml="6"
             my="auto"
             isExternal
-            href={`https://terrasco.pe/${CHAIN_TO_FINDER_INFO[wallet.network.chainID]}/address/${
-              wallet.terraAddress
-            }`}
+            href={`https://terrasco.pe/${network}/address/${wallet.terraAddress}`}
             _hover={{ textDecoration: "none" }}
           >
             <HStack>
