@@ -1,13 +1,30 @@
-import { Box, Flex, Text, Link } from "@chakra-ui/react";
+import { chakra, Link, Box, Flex, Text } from "@chakra-ui/react";
+import NextLink from "next/link";
 import { FC } from "react";
 
 import Header from "./Header";
 
 const MySteak: FC = () => {
+  const bondOrUnbondStyle = {
+    transition: "0.2s all",
+    outline: "none",
+    borderRadius: "md",
+    color: "brand.red",
+    bg: "white",
+    px: "10",
+    py: "2",
+    m: "1",
+    _hover: {
+      color: "brand.black",
+      bg: "brand.lightBrown",
+      textDecoration: "none",
+    },
+  };
+
   return (
     <>
       <Header text="My Steak">
-        <Link variant="trade" href="https://app.astroport.fi">
+        <Link variant="submit" href="https://app.astroport.fi">
           Trade STEAK
         </Link>
       </Header>
@@ -22,12 +39,12 @@ const MySteak: FC = () => {
           My staked STEAK
         </Text>
         <Flex direction={["column", "row", null, null]} justify="center" mt="10">
-          <Link m="1" variant="bondOrUnbond" href="/bond">
-            Stake LUNA
-          </Link>
-          <Link m="1" variant="bondOrUnbond" href="/unbond">
-            Unstake STEAK
-          </Link>
+          <NextLink href="/bond" passHref>
+            <chakra.a {...bondOrUnbondStyle}>Stake LUNA</chakra.a>
+          </NextLink>
+          <NextLink href="/unbond" passHref>
+            <chakra.a {...bondOrUnbondStyle}>Unstake STEAK</chakra.a>
+          </NextLink>
         </Flex>
       </Box>
     </>

@@ -1,20 +1,9 @@
 const link = {
   variants: {
-    bondOrUnbond: {
+    submit: {
+      transition: "0.2s all",
       outline: "none",
-      borderRadius: "md",
-      color: "brand.red",
-      bg: "white",
-      px: "10",
-      py: "2",
-      _hover: {
-        color: "brand.black",
-        bg: "brand.lightBrown",
-        textDecoration: "none",
-      },
-    },
-    trade: {
-      outline: "none",
+      border: "solid 2px #d9474b",
       borderRadius: "md",
       color: "white",
       bg: "brand.red",
@@ -23,19 +12,6 @@ const link = {
       _hover: {
         color: "brand.red",
         bg: "white",
-        textDecoration: "none",
-      },
-    },
-    submit: {
-      outline: "none",
-      borderRadius: "md",
-      color: "white",
-      bg: "brand.red",
-      px: "10",
-      py: "2",
-      _hover: {
-        color: "brand.black",
-        bg: "brand.lightBrown",
         textDecoration: "none",
       },
     },

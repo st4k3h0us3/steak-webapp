@@ -1,4 +1,5 @@
-import { Tr, Td, Text, Link } from "@chakra-ui/react";
+import { chakra, Tr, Td, Text } from "@chakra-ui/react";
+import NextLink from "next/link";
 import { FC } from "react";
 
 type Props = {
@@ -17,9 +18,25 @@ const UnbondQueueItem: FC<Props> = ({ status, amount, startTime, finishTime }) =
 
   const finishTimeItem =
     currentTime >= finishTime ? (
-      <Link variant="submit" href="/withdraw-unbonded" whiteSpace="nowrap">
-        Claim LUNA
-      </Link>
+      <NextLink href="/withdraw-unbonded" passHref>
+        <chakra.a
+          transition="0.2s all"
+          outline="none"
+          border="solid 2px #d9474b"
+          borderRadius="md"
+          color="white"
+          bg="brand.red"
+          px="10"
+          py="2"
+          _hover={{
+            color: "brand.red",
+            bg: "white",
+            textDecoration: "none",
+          }}
+        >
+          Claim LUNA
+        </chakra.a>
+      </NextLink>
     ) : (
       <Text>{finishTime.toLocaleString()}</Text>
     );

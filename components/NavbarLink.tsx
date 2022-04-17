@@ -1,5 +1,5 @@
 import { chakra } from "@chakra-ui/react";
-import Link from "next/link";
+import NextLink  from "next/link";
 import { useRouter } from "next/router";
 import { FC, MouseEventHandler } from "react";
 import * as csstype from "csstype";
@@ -39,7 +39,7 @@ const NavbarLink: FC<Props> = ({ text, href, onClick, underConstruction = false 
       };
 
   return (
-    <Link href={href} passHref>
+    <NextLink href={href} passHref>
       <chakra.a
         transition="0.2s all"
         p="2"
@@ -51,7 +51,7 @@ const NavbarLink: FC<Props> = ({ text, href, onClick, underConstruction = false 
         {text}
         {underConstruction ? <sup>(soon)</sup> : null}
       </chakra.a>
-    </Link>
+    </NextLink>
   );
 };
 
