@@ -66,7 +66,7 @@ const WalletInfoButtons: FC = () => {
         </Button>
       )}
     >
-      <Flex direction="column" justify="center">
+      <Flex direction="column" justify="center" px="2">
         <VStack mt={6} align="flex-start">
           <Text textStyle="minibutton">My Address</Text>
           <Text textStyle="small" variant="dimmed">
@@ -97,12 +97,12 @@ const WalletInfoButtons: FC = () => {
             </HStack>
           </Link>
         </Flex>
+        <Box mt="6">
+          <Button type="button" variant="primary" isFullWidth onClick={disconnect}>
+            Disconnect
+          </Button>
+        </Box>
       </Flex>
-      <Box mt="6">
-        <Button type="button" variant="primary" isFullWidth onClick={disconnect}>
-          Disconnect
-        </Button>
-      </Box>
     </PopoverWrapper>
   );
 };

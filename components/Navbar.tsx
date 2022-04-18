@@ -30,7 +30,7 @@ type Props = {
 
 const NavbarLinks: FC<Props> = ({ isBack = false }) => {
   return (
-    <HStack display={["none", null, null, "block"]} flex="1" px="16" spacing="12">
+    <HStack display={["none", null, null, "block"]} flex="1" px="12" spacing="6">
       {isBack ? <NavbarReturn /> : null}
       {isBack ? null : <NavbarLink text="My Steak" href="/" />}
       {isBack ? null : <NavbarLink text="Protocol Stats" href="/stats" />}

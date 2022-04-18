@@ -18,7 +18,7 @@ const mockAssets = {
   },
   bluna: {
     logo: "/bluna.png",
-    name: "bLuna",
+    name: "Anchor Bonded Luna",
     symbol: "bLUNA",
   },
   stluna: {
@@ -38,7 +38,11 @@ const BondForm: FC = () => {
     <Box maxW="container.sm" mx="auto" mt={[null, null, null, "10"]}>
       <Header text="Stake LUNA" />
       <Box position="relative">
-        <AssetInput defaultAsset={mockAssets["luna"]} additionalAssets={undefined} showMax={true} />
+        <AssetInput
+          defaultAsset={mockAssets["luna"]}
+          additionalAssets={[mockAssets["bluna"], mockAssets["stluna"], mockAssets["lunax"]]}
+          showMax={true}
+        />
         <Flex
           justify="center"
           align="center"
