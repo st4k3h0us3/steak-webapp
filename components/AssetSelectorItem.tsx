@@ -5,10 +5,10 @@ import { Asset } from "../types";
 
 type Props = {
   asset: Asset;
-  onClick: (Asset) => void;
+  onClick: any;
 };
 
-const AssetSelectorListItem: FC<Props> = ({ asset, onClick }) => {
+const AssetSelectorItem: FC<Props> = ({ asset, onClick }) => {
   return (
     <Button
       type="button"
@@ -61,4 +61,4 @@ const AssetSelectorListItem: FC<Props> = ({ asset, onClick }) => {
   );
 };
 
-export default AssetSelectorListItem;
+export default AssetSelectorItem;

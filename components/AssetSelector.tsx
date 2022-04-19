@@ -2,28 +2,32 @@ import {
   useDisclosure,
   Box,
   Button,
-  Flex,
-  Spacer,
   VStack,
   Image,
   Text,
-  HStack,
 } from "@chakra-ui/react";
 import { FC } from "react";
 
-import AssetSelectorListItem from "./AssetSelectorListItem";
+import AssetSelectorItem from "./AssetSelectorItem";
 import ChevronDownIcon from "./ChevronDownIcon";
 import PopoverWrapper from "./PopoverWrapper";
 import { Asset } from "../types";
 
 type Props = {
-  assets: Asset[];
+  current: Asset,
+  available: Asset[];
+  onChange: any;
 };
 
 const mockPrice = "$123.45";
 
-const AssetSelector: FC<Props> = ({ assets }) => {
+const AssetSelector: FC<Props> = ({ current, available, onChange }) => {
   const { onOpen, onClose, isOpen } = useDisclosure();
+
+  const handleItemClick = (asset: Asset) => {
+    onChange(asset);
+    onClose();
+  }
 
   return (
     <PopoverWrapper
@@ -51,16 +55,14 @@ const AssetSelector: FC<Props> = ({ assets }) => {
         >
           <Box>
             <Image
-              src={assets[0].logo}
+              src={current.logo}
               alt="Logo"
               width="10"
               height="10"
-              bg="white"
-              borderRadius="full"
             />
           </Box>
           <Box ml="3" flex="1">
-            <Text fontSize="2xl">{assets[0].symbol}</Text>
+            <Text fontSize="2xl">{current.symbol}</Text>
             <Text fontSize="sm">Price: {mockPrice}</Text>
           </Box>
           <Box ml="auto" mr="3">
@@ -70,8 +72,8 @@ const AssetSelector: FC<Props> = ({ assets }) => {
       )}
     >
       <VStack w={["calc(100vw - 80px)", null, "96"]} spacing={0} align="stretch" mt="6">
-        {assets.map((asset, index) => (
-          <AssetSelectorListItem key={index} asset={asset} onClick={onClose} />
+        {available.map((asset, index) => (
+          <AssetSelectorItem key={index} asset={asset} onClick={handleItemClick} />
         ))}
       </VStack>
     </PopoverWrapper>

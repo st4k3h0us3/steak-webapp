@@ -28,8 +28,6 @@ const AssetSelectorSingle: FC<Props> = ({ asset }) => {
             alt="Logo"
             width="10"
             height="10"
-            bg="white"
-            borderRadius="full"
           />
         </Box>
         <Box ml="3" flex="1">

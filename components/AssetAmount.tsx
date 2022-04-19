@@ -2,10 +2,16 @@ import { NumberInput, NumberInputField, Flex, Box, Button, Text, HStack } from "
 import { FC } from "react";
 
 type Props = {
+  amount: number,
+  onChange: any;
   showMax: boolean;
 };
 
-const AssetAmount: FC<Props> = ({ showMax }) => {
+const AssetAmount: FC<Props> = ({ amount, onChange, showMax }) => {
+  const handleChange = (valueAsString: string, valueAsNumber: number) => {
+    onChange(valueAsNumber);
+  };
+
   const maxButton = showMax ? (
     <Button type="button" variant="mini" onClick={() => {}} isDisabled={false}>
       Max
@@ -15,11 +21,11 @@ const AssetAmount: FC<Props> = ({ showMax }) => {
   return (
     <>
       <NumberInput
-        value="123.456789"
+        value={amount}
         min={0}
         max={12345}
         precision={6}
-        onChange={() => {}}
+        onChange={handleChange}
         onBlur={() => {}}
         onKeyPress={() => {}}
         clampValueOnBlur={true}
