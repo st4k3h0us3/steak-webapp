@@ -3,7 +3,7 @@ import axios from "axios";
 import { useQuery } from "react-query";
 
 import { useConstants } from "./useConstants";
-import { encodeBase64, decodeBase64 } from "../lib";
+import { encodeBase64, decodeBase64 } from "../helpers";
 import { ContractStoreResponse, MultiqueryResponse, NativeBalanceResponse } from "../types";
 
 type Balances = {
