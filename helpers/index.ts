@@ -15,10 +15,18 @@ export function decodeBase64<T>(str: string): T {
 /**
  * Truncate the middle portion of a string
  */
-export function truncate(text = "", h = 4, t = 4) {
+export function truncateString(text = "", h = 4, t = 4) {
   const head = text.slice(0, h);
   const tail = text.slice(-1 * t, text.length);
   return text.length > h + t ? [head, tail].join("...") : text;
+}
+
+/**
+ * Truncate the decimal places of a string
+ */
+export function truncateDecimals(x: number, decPlaces = 6) {
+  const multiplier = Math.pow(10, decPlaces);
+  return Math.ceil(x * multiplier) / multiplier;
 }
 
 /**

@@ -2,7 +2,7 @@ import { NumberInput, NumberInputField, Flex, Box, Button, Text, HStack } from "
 import { FC } from "react";
 
 type Props = {
-  amount: number,
+  amount: number;
   onChange: any;
   showMax: boolean;
 };

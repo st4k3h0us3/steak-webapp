@@ -8,7 +8,7 @@ import PopoverWrapper from "./PopoverWrapper";
 import WalletIcon from "./WalletIcon";
 import WalletNetwork from "./WalletNetwork";
 import { useBalances } from "../hooks";
-import { truncate, formatNumber } from "../helpers";
+import { truncateString, formatNumber } from "../helpers";
 
 /**
  * @dev NOTE: This element is only rendered when wallet is connected, so we can assume `wallet` is defined.
@@ -37,7 +37,7 @@ const WalletInfo: FC = () => {
               <HStack spacing="3">
                 <WalletIcon w="1.25rem" h="1.25rem" />
                 <Text fontSize="md" color="white">
-                  {truncate(wallet!.terraAddress)}
+                  {truncateString(wallet!.terraAddress)}
                 </Text>
               </HStack>
             </Box>

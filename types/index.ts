@@ -13,14 +13,21 @@ export type Coin = {
 };
 
 /**
- * Response of GRPC Gateway API query `/cosmos/bank/v1beta1/balances/{address}`, with pagination paramters omitted
+ * Response of GRPC Gateway `/cosmos/bank/v1beta1/balances/{address}` API, with pagination paramters omitted
  */
 export interface NativeBalancesResponse {
   balances: Coin[];
 }
 
 /**
- * Response of CosmWasm query `BankQuery::Balance`; corresponding to Rust struct `cosmwasm_std::BalanceResponse`
+ * Response of GRPC Gateway `/wasm/v1beta1/contracts/{contractAddress}/store` API
+ */
+export type ContractStoreResponse<T> = {
+  query_result: T;
+};
+
+/**
+ * Response of `cosmwasm_std::BankQuery::Balance`; corresponding to Rust struct `cosmwasm_std::BalanceResponse`
  */
 export type NativeBalanceResponse = {
   amount: Coin;
@@ -34,7 +41,7 @@ export type Cw20BalanceResponse = {
 };
 
 /**
- * Response type of the `multiquery` contract; see [link](https://github.com/st4k3h0us3/multiquery)
+ * Response type of the [`multiquery`](https://github.com/st4k3h0us3/multiquery) contract
  */
 export type MultiqueryResponse = {
   success: boolean;
@@ -42,8 +49,11 @@ export type MultiqueryResponse = {
 }[];
 
 /**
- * Response type of the `/wasm/v1beta1/contracts/{contractAddress}/store` API
+ * Response type of [`steak::hub::StateResponse`](https://github.com/st4k3h0us3/steak-contracts/blob/v1.0.0-rc0/packages/steak/src/hub.rs#L118-L128)
  */
-export type ContractStoreResponse<T> = {
-  query_result: T;
+export type StateResponse = {
+  total_usteak: string;
+  total_uluna: string;
+  exchange_rate: string;
+  unlocked_coins: Coin[];
 };
