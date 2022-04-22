@@ -3,23 +3,27 @@ import NextLink from "next/link";
 import { FC } from "react";
 
 import Header from "./Header";
+import { useBalances } from "../hooks";
+import { formatNumber } from "../helpers";
+
+const bondOrUnbondStyle = {
+  transition: "0.2s all",
+  outline: "none",
+  borderRadius: "md",
+  color: "brand.red",
+  bg: "white",
+  px: "10",
+  py: "2",
+  m: "1",
+  _hover: {
+    color: "brand.black",
+    bg: "brand.lightBrown",
+    textDecoration: "none",
+  },
+};
 
 const MySteak: FC = () => {
-  const bondOrUnbondStyle = {
-    transition: "0.2s all",
-    outline: "none",
-    borderRadius: "md",
-    color: "brand.red",
-    bg: "white",
-    px: "10",
-    py: "2",
-    m: "1",
-    _hover: {
-      color: "brand.black",
-      bg: "brand.lightBrown",
-      textDecoration: "none",
-    },
-  };
+  const { balances } = useBalances();
 
   return (
     <>
@@ -30,7 +34,7 @@ const MySteak: FC = () => {
       </Header>
       <Box color="white" bg="brand.red" p="12" mb="6" borderRadius="2xl" textAlign="center">
         <Text fontSize="6xl" fontWeight="800">
-          17,118.90
+          {formatNumber(balances ? balances.usteak / 1e6 : 0, 3)}
         </Text>
         <Text fontSize="sm" fontWeight="800">
           (= $xxx,xxx.xx)

@@ -9,7 +9,9 @@ import { ContractStoreResponse, MultiqueryResponse, NativeBalanceResponse, Cw20B
 type Balances = {
   isSuccess: boolean;
   balances?: {
-    [key: string]: number;
+    uusd: number;
+    uluna: number;
+    usteak: number;
   };
 };
 

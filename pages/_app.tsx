@@ -5,6 +5,7 @@ import {
   StaticWalletProvider,
 } from "@terra-money/wallet-provider";
 import { AppProps } from "next/app";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import Layout from "../components/Layout";
 import theme from "../theme";
@@ -15,12 +16,18 @@ const CustomApp = ({
   defaultNetwork,
   walletConnectChainIds,
 }: AppProps & WalletControllerChainOptions) => {
+  const queryClient = new QueryClient({
+    // TODO: add appropriate configs here
+  });
+
   const main = (
-    <ChakraProvider theme={theme}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </ChakraProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ChakraProvider>
+    </QueryClientProvider>
   );
 
   return typeof window !== "undefined" ? (

@@ -11,3 +11,19 @@ export function encodeBase64(obj: object | string | number): string {
 export function decodeBase64<T>(str: string): T {
   return JSON.parse(Buffer.from(str, "base64").toString());
 }
+
+/**
+ * Truncate the middle portion of a string
+ */
+export function truncate(text = "", h = 4, t = 4) {
+  const head = text.slice(0, h);
+  const tail = text.slice(-1 * t, text.length);
+  return text.length > h + t ? [head, tail].join("...") : text;
+}
+
+/**
+ * Format a number
+ */
+export function formatNumber(x: number, decPlaces = 2) {
+  return x.toFixed(decPlaces).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

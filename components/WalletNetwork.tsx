@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { FC } from "react";
 
 type Props = {
-  network?: "mainnet" | "testnet" | "localterra";
+  network?: string;
 };
 
 const WalletNetwork: FC<Props> = ({ network }) => {
@@ -22,7 +22,7 @@ const WalletNetwork: FC<Props> = ({ network }) => {
       right="-0.5rem"
       zIndex="1"
     >
-      {network ? network : "unknown"}
+      {network ? network : "network unknown"}
     </Box>
   );
 };

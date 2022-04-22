@@ -24,7 +24,7 @@ const WalletConnectButton: FC = () => {
       .filter(({ type }) => type !== ConnectType.READONLY)
       .map(({ type, icon, name, identifier }) => ({
         type,
-        identifier,
+        identifier: identifier ?? "",
         name,
         icon,
         isInstalled: true,

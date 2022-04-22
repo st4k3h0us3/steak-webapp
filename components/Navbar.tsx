@@ -10,7 +10,7 @@ import {
   DrawerOverlay,
   DrawerContent,
 } from "@chakra-ui/react";
-import { useWallet, WalletStatus } from "@terra-money/wallet-provider";
+import { useConnectedWallet } from "@terra-money/wallet-provider";
 import React, { FC } from "react";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
@@ -19,7 +19,7 @@ import BurgerIcon from "./BurgerIcon";
 import CloseIcon from "./CloseIcon";
 import SteakIcon from "./SteakIcon";
 import NavbarLink from "./NavbarLink";
-import NavbarReturn from "./NavbarReturn"
+import NavbarReturn from "./NavbarReturn";
 import WalletInfo from "./WalletInfo";
 import WalletConnect from "./WalletConnect";
 
@@ -49,10 +49,13 @@ const SidebarLinks: FC<Props> = ({ isBack = false, onClick }) => {
 };
 
 const Navbar: FC = () => {
-  const { status } = useWallet();
+  const wallet = useConnectedWallet();
   const { asPath } = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef();
+
+  // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/35572#issuecomment-493942129
+  const btnRef = React.useRef() as React.MutableRefObject<HTMLButtonElement>;
+
   const isBack = ["/bond", "/unbond", "/withdraw-unbonded"].includes(asPath);
 
   return (
@@ -65,7 +68,7 @@ const Navbar: FC = () => {
         </NextLink>
         <NavbarLinks isBack={isBack} />
         <HStack justify="flex-end">
-          {status === WalletStatus.WALLET_CONNECTED ? <WalletInfo /> : <WalletConnect />}
+          {wallet ? <WalletInfo /> : <WalletConnect />}
           <Button
             display={[null, null, null, "none"]}
             variant="simple"
