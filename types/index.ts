@@ -57,3 +57,12 @@ export type StateResponse = {
   exchange_rate: string;
   unlocked_coins: Coin[];
 };
+
+/**
+ * Response type of Coingecko's [`/simple/price`](https://www.coingecko.com/en/api/documentation) API for Luna in USD
+ */
+export type CoingeckeLunaUsdResponse = {
+  "terra-luna": {
+    usd: number;
+  };
+};

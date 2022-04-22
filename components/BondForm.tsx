@@ -18,12 +18,12 @@ const BondForm: FC = () => {
 
   const { responses } = useHub(wallet?.network, [{ state: {} }]);
   const stateResponse = responses ? (responses[0] as StateResponse) : undefined;
-  const exchangeRate = stateResponse?.exchange_rate ? Number(stateResponse["exchange_rate"]) : undefined; // Luna per Steak
+  const exchangeRate = stateResponse ? Number(stateResponse["exchange_rate"]) : undefined; // Luna per Steak
 
   const handleOfferAmountChange = (newOfferAmount: number) => {
     setOfferAmount(newOfferAmount);
     setReturnAmount(exchangeRate ? truncateDecimals(newOfferAmount / exchangeRate) : 0);
-  }
+  };
 
   return (
     <Box maxW="container.sm" mx="auto" mt={[null, null, null, "10"]}>

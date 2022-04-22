@@ -1,10 +1,12 @@
 import { chakra, Link, Box, Flex, Text } from "@chakra-ui/react";
+import { useConnectedWallet } from "@terra-money/wallet-provider";
 import NextLink from "next/link";
 import { FC } from "react";
 
 import Header from "./Header";
-import { useBalances } from "../hooks";
+import { useBalances, useHub, useLunaPrice } from "../hooks";
 import { formatNumber } from "../helpers";
+import { StateResponse } from "../types";
 
 const bondOrUnbondStyle = {
   transition: "0.2s all",
@@ -23,7 +25,15 @@ const bondOrUnbondStyle = {
 };
 
 const MySteak: FC = () => {
-  const { balances } = useBalances();
+  const wallet = useConnectedWallet();
+  const { balances } = useBalances(wallet);
+  const { responses } = useHub(wallet?.network, [{ state: {} }]);
+  const { lunaPriceUsd } = useLunaPrice();
+
+  const steakBalance = balances ? balances.usteak / 1e6 : undefined;  
+  const stateResponse = responses ? (responses[0] as StateResponse) : undefined;
+  const exchangeRate = stateResponse ? Number(stateResponse["exchange_rate"]) : undefined; // Luna per Steak
+  const steakValue = (steakBalance && exchangeRate && lunaPriceUsd) ? steakBalance * exchangeRate * lunaPriceUsd : undefined;
 
   return (
     <>
@@ -34,10 +44,10 @@ const MySteak: FC = () => {
       </Header>
       <Box color="white" bg="brand.red" p="12" mb="6" borderRadius="2xl" textAlign="center">
         <Text fontSize="6xl" fontWeight="800">
-          {formatNumber(balances ? balances.usteak / 1e6 : 0, 3)}
+          {steakBalance ? formatNumber(steakBalance, 3) : "0.000"}
         </Text>
-        <Text fontSize="sm" fontWeight="800">
-          (= $xxx,xxx.xx)
+        <Text fontWeight="800">
+          {"($" + (steakValue ? formatNumber(steakValue, 2) : "0.00") + ")"}
         </Text>
         <Text color="brand.lightBrown" mt="5">
           My staked STEAK
