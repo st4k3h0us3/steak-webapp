@@ -21,7 +21,7 @@ export function useBalances(wallet?: ConnectedWallet): Balances {
       bank: {
         balance: {
           address: wallet?.terraAddress,
-          denom: "uluna",
+          denom: "uusd",
         },
       },
     },
@@ -29,7 +29,7 @@ export function useBalances(wallet?: ConnectedWallet): Balances {
       bank: {
         balance: {
           address: wallet?.terraAddress,
-          denom: "uusd",
+          denom: "uluna",
         },
       },
     },
@@ -65,8 +65,8 @@ export function useBalances(wallet?: ConnectedWallet): Balances {
   if (isSuccess) {
     const items = data.data.query_result;
 
-    const { amount: uusd } = decodeBase64<NativeBalanceResponse>(items[1]!.data);
-    const { amount: uluna } = decodeBase64<NativeBalanceResponse>(items[0]!.data);
+    const { amount: uusd } = decodeBase64<NativeBalanceResponse>(items[0]!.data);
+    const { amount: uluna } = decodeBase64<NativeBalanceResponse>(items[1]!.data);
     const { balance: usteak } = decodeBase64<Cw20BalanceResponse>(items[2]!.data);
 
     return {
