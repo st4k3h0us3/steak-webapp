@@ -1,35 +1,19 @@
 import { Box, Flex, Button, Text } from "@chakra-ui/react";
 import { useState, FC } from "react";
 
-import Header from "components/Header";
-import AssetInput from "components/AssetInput";
-import ArrowDownIcon from "components/ArrowDownIcon";
+import Header from "./Header";
+import AssetInput from "./AssetInput";
+import ArrowDownIcon from "./ArrowDownIcon";
 import { ASSETS } from "../constants";
-import { Asset } from "../types";
-
-const mockCurrentAsset = ASSETS["luna"];
-const mockAvailableAssets = [ASSETS["luna"], ASSETS["bluna"], ASSETS["stluna"], ASSETS["lunax"]];
 
 const BondForm: FC = () => {
-  const [currentAsset, setCurrentAsset] = useState<Asset>(mockCurrentAsset);
   const [currentAmount, setCurrentAmount] = useState<number>(0);
-
-  const handleCurrentAssetChange = (asset: Asset) => {
-    setCurrentAsset(asset);
-    setCurrentAmount(0);
-  }
 
   return (
     <Box maxW="container.sm" mx="auto" mt={[null, null, null, "10"]}>
       <Header text="Stake LUNA" />
       <Box position="relative">
-        <AssetInput
-          currentAsset={currentAsset}
-          currentAmount={currentAmount}
-          availableAssets={mockAvailableAssets}
-          onAssetChange={handleCurrentAssetChange}
-          onAmountChange={setCurrentAmount}
-        />
+        <AssetInput currentAsset={ASSETS["luna"]} currentAmount={currentAmount} onAmountChange={setCurrentAmount} />
         <Flex
           justify="center"
           align="center"
