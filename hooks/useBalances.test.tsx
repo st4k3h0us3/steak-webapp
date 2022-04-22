@@ -3,8 +3,10 @@ import { renderHook } from "@testing-library/react-hooks";
 import axios from "axios";
 import { QueryClient, QueryClientProvider } from "react-query";
 
+import { CONTRACTS, DEV_ACCT } from "../constants";
 import { useBalances } from "./useBalances";
-import { NativeBalancesResponse } from "../types";
+import { encodeBase64 } from "../helpers";
+import { ContractStoreResponse, NativeBalancesResponse, Cw20BalanceResponse } from "../types";
 
 // https://react-query.tanstack.com/guides/testing
 function wrapper({ children }) {
@@ -14,7 +16,7 @@ function wrapper({ children }) {
 
 async function queryNativeBalances(address: string, denoms: string[]) {
   const { data } = await axios.get<NativeBalancesResponse>(
-    `https://lcd.terra.dev/cosmos/bank/v1beta1/balances/${address}`
+    `https://bombay-lcd.terra.dev/cosmos/bank/v1beta1/balances/${address}`
   );
 
   const balances: { [key: string]: number } = {};
@@ -26,13 +28,24 @@ async function queryNativeBalances(address: string, denoms: string[]) {
   return balances;
 }
 
+async function queryCw20Balances(address: string, token: string) {
+  const queryMsg = encodeBase64({
+    balance: { address },
+  });
+
+  const { data } = await axios.get<ContractStoreResponse<Cw20BalanceResponse>>(
+    `https://bombay-lcd.terra.dev/terra/wasm/v1beta1/contracts/${token}/store?query_msg=${queryMsg}`
+  );
+
+  return Number(data.query_result.balance);
+}
+
 test("should return correct balances for wallet", async () => {
-  const mockAddress = "terra1z926ax906k0ycsuckele6x5hh66e2m4m5udwep";
   const mockWallet = {
     network: {
-      name: "mainnet",
+      name: "testnet",
     },
-    terraAddress: mockAddress,
+    terraAddress: DEV_ACCT,
   } as ConnectedWallet;
 
   const { result, waitFor } = renderHook(() => useBalances(mockWallet), { wrapper });
@@ -40,7 +53,8 @@ test("should return correct balances for wallet", async () => {
   await waitFor(() => result.current.isSuccess);
 
   expect(result.current.balances).toStrictEqual({
-    ...(await queryNativeBalances(mockAddress, ["uluna", "uusd"])),
+    ...(await queryNativeBalances(DEV_ACCT, ["uusd", "uluna"])),
+    usteak: await queryCw20Balances(DEV_ACCT, CONTRACTS["testnet"]["steak"]),
   });
 });
 

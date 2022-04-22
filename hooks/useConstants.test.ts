@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react-hooks";
 
-import { GRPC_GATEWAY_URL, MULTIQUERY, TOKENS } from "../constants";
+import { GRPC_GATEWAY_URL, CONTRACTS } from "../constants";
 import { useConstants } from "./useConstants";
 
 test("should return correct constants for network", () => {
@@ -12,8 +12,7 @@ test("should return correct constants for network", () => {
 
   expect(result.current).toStrictEqual({
     grpcGatewayUrl: GRPC_GATEWAY_URL["mainnet"],
-    multiquery: MULTIQUERY["mainnet"],
-    tokens: TOKENS["mainnet"],
+    contracts: CONTRACTS["mainnet"],
   });
 });
 
