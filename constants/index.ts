@@ -22,33 +22,5 @@ export const CONTRACTS = {
   },
 };
 
-export const ASSETS = {
-  steak: {
-    logo: "/steak.png",
-    name: "Steak",
-    symbol: "STEAK",
-  },
-  luna: {
-    logo: "/luna.png",
-    name: "Luna",
-    symbol: "LUNA",
-  },
-  bluna: {
-    logo: "/bluna.png",
-    name: "Anchor Bonded Luna",
-    symbol: "bLUNA",
-  },
-  stluna: {
-    logo: "/stluna.png",
-    name: "Lido Staked Luna",
-    symbol: "stLUNA",
-  },
-  lunax: {
-    logo: "/lunax.png",
-    name: "Stader LunaX",
-    symbol: "LUNAX",
-  },
-};
-
 // Larry's dev account. Used in testing
 export const DEV_ACCT = "terra1z926ax906k0ycsuckele6x5hh66e2m4m5udwep";
