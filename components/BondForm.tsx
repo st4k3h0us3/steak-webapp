@@ -1,24 +1,17 @@
 import { Box, Flex, Button, Text } from "@chakra-ui/react";
-import { useConnectedWallet } from "@terra-money/wallet-provider";
 import { useState, FC } from "react";
 
 import Header from "./Header";
 import AssetInput from "./AssetInput";
 import ArrowDownIcon from "./ArrowDownIcon";
 import { ASSETS } from "../constants";
-import { useHub } from "../hooks";
-import { StateResponse } from "../types";
+import { useStore } from "../store";
 import { truncateDecimals } from "../helpers";
 
 const BondForm: FC = () => {
+  const exchangeRate = useStore((state) => state.state?.exchangeRate);
   const [offerAmount, setOfferAmount] = useState<number>(0);
   const [returnAmount, setReturnAmount] = useState<number>(0);
-
-  const wallet = useConnectedWallet();
-
-  const { responses } = useHub(wallet?.network, [{ state: {} }]);
-  const stateResponse = responses ? (responses[0] as StateResponse) : undefined;
-  const exchangeRate = stateResponse ? Number(stateResponse["exchange_rate"]) : undefined; // Luna per Steak
 
   const handleOfferAmountChange = (newOfferAmount: number) => {
     setOfferAmount(newOfferAmount);

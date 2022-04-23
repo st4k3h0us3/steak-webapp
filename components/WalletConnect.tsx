@@ -16,7 +16,6 @@ type WalletOptions = {
 
 const WalletConnectButton: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const { connect, availableInstallations, availableConnections } = useWallet();
 
   const wallets: WalletOptions[] = [

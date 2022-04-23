@@ -6,8 +6,9 @@ import { useConstants } from "./useConstants";
 import { encodeBase64, decodeBase64 } from "../helpers";
 import { ContractStoreResponse, MultiqueryResponse } from "../types";
 
-type HubQueryResult = {
+export type HubQueryResult = {
   isSuccess: boolean;
+  isSkipped: boolean;
   responses?: object[];
 };
 
@@ -34,11 +35,12 @@ export function useHub(network: NetworkInfo | undefined, queries: object[]): Hub
   };
 
   // NOTE: Skip the query if `network` is undefined
-  const { data, isSuccess } = useQuery("hub", query, { enabled: !!network });
+  const isSkipped = !network;
+  const { data, isSuccess } = useQuery("hub", query, { enabled: !isSkipped });
 
   // If `network` is not specified, we return status as success and balances and undefined
   if (!network) {
-    return { isSuccess: true };
+    return { isSkipped, isSuccess: true };
   }
 
   // If `network` is specified, we wait for the query to succeeed, then parse the result and return
@@ -46,11 +48,12 @@ export function useHub(network: NetworkInfo | undefined, queries: object[]): Hub
     const items = data.data.query_result;
 
     return {
+      isSkipped,
       isSuccess,
       responses: items.map((item) => decodeBase64(item.data)),
     };
   }
 
   // If `network` is specified, but the query is not completed yet, we keep waiting
-  return { isSuccess };
+  return { isSkipped, isSuccess };
 }

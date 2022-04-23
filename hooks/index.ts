@@ -1,4 +1,4 @@
 export * from "./useBalances";
 export * from "./useConstants";
 export * from "./useHub";
-export * from "./useLunaPrice";
+export * from "./usePrices";

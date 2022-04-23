@@ -6,7 +6,8 @@ import { useConstants } from "./useConstants";
 import { encodeBase64, decodeBase64 } from "../helpers";
 import { ContractStoreResponse, MultiqueryResponse, NativeBalanceResponse, Cw20BalanceResponse } from "../types";
 
-type Balances = {
+export type BalancesResult = {
+  isSkipped: boolean;
   isSuccess: boolean;
   balances?: {
     uusd: number;
@@ -15,7 +16,7 @@ type Balances = {
   };
 };
 
-export function useBalances(wallet?: ConnectedWallet): Balances {
+export function useBalances(wallet?: ConnectedWallet): BalancesResult {
   const { grpcGatewayUrl, contracts } = useConstants(wallet?.network);
 
   const queryMsg = encodeBase64([
@@ -56,11 +57,12 @@ export function useBalances(wallet?: ConnectedWallet): Balances {
   };
 
   // NOTE: Skip the query if `wallet` is undefined
-  const { data, isSuccess } = useQuery("balances", query, { enabled: !!wallet });
+  const isSkipped = !wallet;
+  const { data, isSuccess } = useQuery("balances", query, { enabled: !isSkipped });
 
   // If `wallet` is not specified, we return status as success and balances and undefined
   if (!wallet) {
-    return { isSuccess: true };
+    return { isSkipped, isSuccess: true };
   }
 
   // If `wallet` is specified, we wait for the query to succeeed, then parse the result and return
@@ -72,6 +74,7 @@ export function useBalances(wallet?: ConnectedWallet): Balances {
     const { balance: usteak } = decodeBase64<Cw20BalanceResponse>(items[2]!.data);
 
     return {
+      isSkipped,
       isSuccess,
       balances: {
         uluna: Number(uluna.amount),
@@ -82,5 +85,5 @@ export function useBalances(wallet?: ConnectedWallet): Balances {
   }
 
   // If `wallet` is specified, but the query is not completed yet, we keep waiting
-  return { isSuccess };
+  return { isSkipped, isSuccess };
 }

@@ -1,12 +1,10 @@
 import { chakra, Link, Box, Flex, Text } from "@chakra-ui/react";
-import { useConnectedWallet } from "@terra-money/wallet-provider";
 import NextLink from "next/link";
 import { FC } from "react";
 
 import Header from "./Header";
-import { useBalances, useHub, useLunaPrice } from "../hooks";
+import { useStore } from "../store";
 import { formatNumber } from "../helpers";
-import { StateResponse } from "../types";
 
 const bondOrUnbondStyle = {
   transition: "0.2s all",
@@ -25,15 +23,16 @@ const bondOrUnbondStyle = {
 };
 
 const MySteak: FC = () => {
-  const wallet = useConnectedWallet();
-  const { balances } = useBalances(wallet);
-  const { responses } = useHub(wallet?.network, [{ state: {} }]);
-  const { lunaPriceUsd } = useLunaPrice();
+  const usteak = useStore((state) => state.balances?.usteak);
+  const usdPerSteak = useStore((state) => {
+    if (state.state && state.prices) {
+      return state.state.exchangeRate * state.prices.luna;
+    }
+    return undefined;
+  });
 
-  const steakBalance = balances ? balances.usteak / 1e6 : undefined;  
-  const stateResponse = responses ? (responses[0] as StateResponse) : undefined;
-  const exchangeRate = stateResponse ? Number(stateResponse["exchange_rate"]) : undefined; // Luna per Steak
-  const steakValue = (steakBalance && exchangeRate && lunaPriceUsd) ? steakBalance * exchangeRate * lunaPriceUsd : undefined;
+  const steakBalance = usteak ? usteak / 1e6 : undefined;
+  const steakValue = steakBalance && usdPerSteak ? steakBalance * usdPerSteak : undefined;
 
   return (
     <>
