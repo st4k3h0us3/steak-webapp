@@ -1,4 +1,3 @@
-import { NetworkInfo } from "@terra-money/wallet-provider";
 import axios from "axios";
 import { useQuery } from "react-query";
 
@@ -12,7 +11,7 @@ export type HubQueryResult = {
   responses?: object[];
 };
 
-export function useHub(network: NetworkInfo | undefined, queries: object[]): HubQueryResult {
+export function useHub(network?: string, queries: object[] = []): HubQueryResult {
   const { grpcGatewayUrl, contracts } = useConstants(network);
 
   const queryMsg = encodeBase64(
@@ -35,7 +34,7 @@ export function useHub(network: NetworkInfo | undefined, queries: object[]): Hub
   };
 
   // NOTE: Skip the query if `network` is undefined
-  const isSkipped = !network;
+  const isSkipped = !network || queries.length < 1;
   const { data, isSuccess } = useQuery("hub", query, { enabled: !isSkipped });
 
   // If `network` is not specified, we return status as success and balances and undefined

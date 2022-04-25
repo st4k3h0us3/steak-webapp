@@ -12,7 +12,7 @@ const Layout: FC = ({ children }) => {
   const store = useStore();
   const wallet = useConnectedWallet();
   const pricesResult = usePrices();
-  const stateResult = useHub(wallet?.network, [{ state: {} }]);
+  const stateResult = useHub(wallet?.network.name, [{ state: {} }]);
   const balancesResult = useBalances(wallet);
 
   // Updatw wallet if it is changed

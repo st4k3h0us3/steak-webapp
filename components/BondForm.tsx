@@ -1,20 +1,54 @@
 import { Box, Flex, Button, Text } from "@chakra-ui/react";
-import { useState, FC } from "react";
+import { MsgExecuteContract } from "@terra-money/terra.js";
+import { useConnectedWallet } from "@terra-money/wallet-provider";
+import { useRouter } from "next/router";
+import { FC, useEffect, useState } from "react";
 
 import Header from "./Header";
 import AssetInput from "./AssetInput";
 import ArrowDownIcon from "./ArrowDownIcon";
 import { useStore } from "../store";
 import { truncateDecimals } from "../helpers";
+import { useConstants } from "../hooks";
 
 const BondForm: FC = () => {
+  const router = useRouter();
+  const wallet = useConnectedWallet();
   const balances = useStore((state) => state.balances);
-  const exchangeRate = useStore((state) => state.state?.exchangeRate);
   const lunaPrice = useStore((state) => state.prices?.luna);
+  const exchangeRate = useStore((state) => state.state?.exchangeRate);
+  const [steakPrice, setSteakPrice] = useState<number>();
   const [offerAmount, setOfferAmount] = useState<number>(0);
   const [returnAmount, setReturnAmount] = useState<number>(0);
+  const [msgs, setMsgs] = useState<MsgExecuteContract[]>([]);
+  const { contracts, gasConfigs } = useConstants(wallet?.network.name);
 
-  const steakPrice = exchangeRate && lunaPrice ? exchangeRate * lunaPrice : undefined;
+  useEffect(() => {
+    if (lunaPrice && exchangeRate) {
+      setSteakPrice(lunaPrice * exchangeRate);
+    } else {
+      setSteakPrice(undefined);
+    }
+  }, [lunaPrice, exchangeRate]);
+
+  useEffect(() => {
+    if (wallet && contracts) {
+      setMsgs([
+        new MsgExecuteContract(
+          wallet?.terraAddress,
+          contracts["hub"],
+          {
+            bond: {},
+          },
+          {
+            uluna: offerAmount * 1e6,
+          }
+        ),
+      ]);
+    } else {
+      setMsgs([]);
+    }
+  }, [wallet?.network.name, wallet?.terraAddress, offerAmount]);
 
   const handleOfferAmountChange = (newOfferAmount: number) => {
     setOfferAmount(newOfferAmount);
@@ -27,7 +61,9 @@ const BondForm: FC = () => {
   };
 
   const handleSubmitBtnClick = () => {
-    // TODO
+    wallet!.post({ msgs, ...gasConfigs }).then((result) => {
+      router.push(`/tx?txhash=${result.result.txhash}`);
+    });
   };
 
   return (
@@ -77,12 +113,12 @@ const BondForm: FC = () => {
           mt="6"
           onClick={handleSubmitBtnClick}
           isLoading={false}
-          isDisabled={false}
+          isDisabled={!wallet}
         >
           <Text>Stake</Text>
         </Button>
         <Text mt="3" textStyle="small" variant="dimmed" textAlign="center">
-          TX Fee: ?
+          {""}
         </Text>
       </Box>
     </Box>

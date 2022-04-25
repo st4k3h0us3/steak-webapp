@@ -1,9 +1,12 @@
-import { NetworkInfo } from "@terra-money/wallet-provider";
-
-import { GRPC_GATEWAY_URL, CONTRACTS } from "../constants";
+import { GRPC_GATEWAY_URL, GAS_CONFIGS, CONTRACTS } from "../constants";
 
 type Constants = {
   grpcGatewayUrl?: string;
+  gasConfigs?: {
+    gas?: string;
+    gasPrices: string;
+    gasAdjustment: number;
+  };
   contracts?: {
     multiquery: string;
     hub: string;
@@ -11,11 +14,12 @@ type Constants = {
   };
 };
 
-export function useConstants(network?: NetworkInfo): Constants {
-  if (network && (network.name === "mainnet" || network.name === "testnet")) {
+export function useConstants(network?: string): Constants {
+  if (network === "mainnet" || network === "testnet") {
     return {
-      grpcGatewayUrl: GRPC_GATEWAY_URL[network.name],
-      contracts: CONTRACTS[network.name],
+      grpcGatewayUrl: GRPC_GATEWAY_URL[network],
+      gasConfigs: GAS_CONFIGS,
+      contracts: CONTRACTS[network],
     };
   }
 

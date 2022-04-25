@@ -17,7 +17,7 @@ export type BalancesResult = {
 };
 
 export function useBalances(wallet?: ConnectedWallet): BalancesResult {
-  const { grpcGatewayUrl, contracts } = useConstants(wallet?.network);
+  const { grpcGatewayUrl, contracts } = useConstants(wallet?.network.name);
 
   const queryMsg = encodeBase64([
     {
@@ -61,7 +61,7 @@ export function useBalances(wallet?: ConnectedWallet): BalancesResult {
   const { data, isSuccess } = useQuery("balances", query, { enabled: !isSkipped });
 
   // If `wallet` is not specified, we return status as success and balances and undefined
-  if (!wallet) {
+  if (isSkipped) {
     return { isSkipped, isSuccess: true };
   }
 

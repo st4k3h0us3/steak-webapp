@@ -9,6 +9,12 @@ export const GRPC_GATEWAY_URL = {
   testnet: "https://bombay-lcd.terra.dev",
 };
 
+export const GAS_CONFIGS = {
+  gas: undefined, // leave undefined so it is estimated when signing
+  gasPrices: "0.15uusd",
+  gasAdjustment: 1.4,
+};
+
 export const CONTRACTS = {
   mainnet: {
     multiquery: "terra1swrywzkphty20e2uzpy582xu836luw0e5yp25m",
