@@ -6,7 +6,7 @@ import { FC, useEffect, useState } from "react";
 import Header from "./Header";
 import AssetInput from "./AssetInput";
 import ArrowDownIcon from "./ArrowDownIcon";
-import TxSubmit from "./TxSubmit";
+import TxModal from "./TxModal";
 import { useStore } from "../store";
 import { truncateDecimals } from "../helpers";
 import { useConstants } from "../hooks";
@@ -114,7 +114,7 @@ const BondForm: FC = () => {
         <Text mt="3" textStyle="small" variant="dimmed" textAlign="center">
           {""}
         </Text>
-        <TxSubmit isOpen={isOpen} onClose={onClose} msgs={msgs} />
+        <TxModal isOpen={isOpen} onClose={onClose} title="Stake LUNA" msgs={msgs} />
       </Box>
     </Box>
   );
