@@ -1,18 +1,17 @@
-import { Box, Flex, Button, Text } from "@chakra-ui/react";
+import { useDisclosure, Box, Flex, Button, Text } from "@chakra-ui/react";
 import { MsgExecuteContract } from "@terra-money/terra.js";
 import { useConnectedWallet } from "@terra-money/wallet-provider";
-import { useRouter } from "next/router";
 import { FC, useEffect, useState } from "react";
 
 import Header from "./Header";
 import AssetInput from "./AssetInput";
 import ArrowDownIcon from "./ArrowDownIcon";
+import TxSubmit from "./TxSubmit";
 import { useStore } from "../store";
 import { truncateDecimals } from "../helpers";
 import { useConstants } from "../hooks";
 
 const BondForm: FC = () => {
-  const router = useRouter();
   const wallet = useConnectedWallet();
   const balances = useStore((state) => state.balances);
   const lunaPrice = useStore((state) => state.prices?.luna);
@@ -21,7 +20,8 @@ const BondForm: FC = () => {
   const [offerAmount, setOfferAmount] = useState<number>(0);
   const [returnAmount, setReturnAmount] = useState<number>(0);
   const [msgs, setMsgs] = useState<MsgExecuteContract[]>([]);
-  const { contracts, gasConfigs } = useConstants(wallet?.network.name);
+  const { contracts } = useConstants(wallet?.network.name);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     if (lunaPrice && exchangeRate) {
@@ -35,7 +35,7 @@ const BondForm: FC = () => {
     if (wallet && contracts) {
       setMsgs([
         new MsgExecuteContract(
-          wallet?.terraAddress,
+          wallet.terraAddress,
           contracts["hub"],
           {
             bond: {},
@@ -58,12 +58,6 @@ const BondForm: FC = () => {
   const handleReturnAmountChange = (newReturnAmount: number) => {
     setReturnAmount(newReturnAmount);
     setOfferAmount(exchangeRate ? truncateDecimals(newReturnAmount * exchangeRate) : 0);
-  };
-
-  const handleSubmitBtnClick = () => {
-    wallet!.post({ msgs, ...gasConfigs }).then((result) => {
-      router.push(`/tx?txhash=${result.result.txhash}`);
-    });
   };
 
   return (
@@ -111,15 +105,16 @@ const BondForm: FC = () => {
           type="button"
           variant="primary"
           mt="6"
-          onClick={handleSubmitBtnClick}
+          onClick={onOpen}
           isLoading={false}
-          isDisabled={!wallet}
+          isDisabled={!wallet || offerAmount == 0}
         >
-          <Text>Stake</Text>
+          Stake
         </Button>
         <Text mt="3" textStyle="small" variant="dimmed" textAlign="center">
           {""}
         </Text>
+        <TxSubmit isOpen={isOpen} onClose={onClose} msgs={msgs} />
       </Box>
     </Box>
   );

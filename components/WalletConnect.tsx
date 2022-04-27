@@ -1,8 +1,8 @@
-import { chakra, useDisclosure, HStack, Image, Text } from "@chakra-ui/react";
+import { useDisclosure, Button, HStack, Flex, Spacer, Image, Text } from "@chakra-ui/react";
 import { useWallet, ConnectType } from "@terra-money/wallet-provider";
 import { FC } from "react";
 
-import Modal from "./Modal";
+import ModalWrapper from "./ModalWrapper";
 import TerraIcon from "./TerraIcon";
 
 type WalletOptions = {
@@ -46,14 +46,15 @@ const WalletConnectButton: FC = () => {
   ];
 
   const buttons = wallets.map((wallet, index) => (
-    <chakra.button
+    <Button
       key={index}
-      transition="0.2s all"
-      p="6"
-      borderRadius="xl"
+      w="100%"
+      minH="4rem"
       bg="brand.darkBrown"
-      width="100%"
+      p="6"
       mb="4"
+      borderRadius="xl"
+      transition="0.2s all"
       _hover={{
         bg: "brand.darkerBrown",
         color: "white",
@@ -63,40 +64,39 @@ const WalletConnectButton: FC = () => {
         wallet.walletAction();
       }}
     >
-      <HStack justify="space-between">
+      <Flex w="100%" align="center">
         <Text>{wallet.name}</Text>
+        <Spacer />
         <Image src={wallet.icon} htmlWidth="24" alt="" />
-      </HStack>
-    </chakra.button>
+      </Flex>
+    </Button>
   ));
 
   return (
-    <>
-      <chakra.button
-        type="button"
-        color="white"
-        onClick={onOpen}
-        _focus={{
-          outline: "none",
-          boxShadow: "none",
-        }}
-        _hover={{
-          bg: "brand.darkerBrown",
-        }}
-        bg="brand.darkBrown"
-        py="2"
-        px="4"
-        borderRadius="full"
-      >
-        <HStack spacing="3">
-          <TerraIcon width="1.25rem" height="1.25rem" />
-          <Text fontSize="md">Connect your wallet</Text>
-        </HStack>
-        <Modal isOpen={isOpen} onClose={onClose} title="Connect to a wallet">
-          {buttons}
-        </Modal>
-      </chakra.button>
-    </>
+    <Button
+      type="button"
+      bg="brand.darkBrown"
+      color="white"
+      py="2"
+      px="4"
+      borderRadius="full"
+      _focus={{
+        outline: "none",
+        boxShadow: "none",
+      }}
+      _hover={{
+        bg: "brand.darkerBrown",
+      }}
+      onClick={onOpen}
+    >
+      <HStack spacing="3">
+        <TerraIcon width="1.25rem" height="1.25rem" />
+        <Text fontSize="md">Connect your wallet</Text>
+      </HStack>
+      <ModalWrapper isOpen={isOpen} onClose={onClose} title="Connect to a wallet">
+        {buttons}
+      </ModalWrapper>
+    </Button>
   );
 };
 

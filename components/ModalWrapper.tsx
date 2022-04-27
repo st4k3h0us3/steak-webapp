@@ -16,9 +16,9 @@ type Props = {
   onClose: () => void;
 };
 
-const Popover: FC<Props> = ({ children, isOpen, onClose, title }) => {
+const ModalWrapper: FC<Props> = ({ children, isOpen, onClose, title }) => {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl">
+    <Modal isOpen={isOpen} onClose={onClose} size="xl" preserveScrollBarGap={true}>
       <ModalOverlay />
       <ModalContent mx="4">
         <Flex justify="space-between" px={["0", "6"]} pb="2" align="center">
@@ -33,4 +33,4 @@ const Popover: FC<Props> = ({ children, isOpen, onClose, title }) => {
   );
 };
 
-export default Popover;
+export default ModalWrapper;
