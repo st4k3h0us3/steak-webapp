@@ -41,8 +41,8 @@ type Props = {
 
 const TxModal: FC<Props> = ({ title, msgs, isOpen, onClose }) => {
   const wallet = useConnectedWallet();
-  const network = useStore((state) => state.wallet?.network);
-  const { gasConfigs } = useConstants(network);
+  const store = useStore();
+  const { gasOptions } = useConstants(wallet?.network.name);
   const [txStatusHeader, setTxStatusHeader] = useState<string>();
   const [txStatusIcon, setTxStatusIcon] = useState<JSX.Element>();
   const [txStatusDetail, setTxStatusDetail] = useState<JSX.Element>();
@@ -56,7 +56,7 @@ const TxModal: FC<Props> = ({ title, msgs, isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen && wallet) {
       wallet
-        .post({ msgs, ...gasConfigs })
+        .post({ msgs, ...gasOptions })
         .then((result) => {
           setTxStatusHeader("Transaction Successful");
           setTxStatusIcon(<SuccessIcon h="80px" w="80px" />);
@@ -71,7 +71,7 @@ const TxModal: FC<Props> = ({ title, msgs, isOpen, onClose }) => {
                   mr="auto"
                   my="auto"
                   isExternal
-                  href={`https://terrasco.pe/${network}/tx/${result.result.txhash}`}
+                  href={`https://terrasco.pe/${wallet?.network.name}/tx/${result.result.txhash}`}
                   _hover={{ textDecoration: "none" }}
                 >
                   {truncateString(result.result.txhash, 6, 6)}
@@ -86,8 +86,7 @@ const TxModal: FC<Props> = ({ title, msgs, isOpen, onClose }) => {
               {CloseButton(onClose)}
             </>
           );
-
-          // TODO: Trigger a refresh of user wallet balance!!
+          store.update(wallet); // refresh store once tx is completed
         })
         .catch((error) => {
           setTxStatusHeader("Transaction Failed");

@@ -7,16 +7,15 @@ import Header from "./Header";
 import AssetInput from "./AssetInput";
 import ArrowDownIcon from "./ArrowDownIcon";
 import TxModal from "./TxModal";
-import { useStore } from "../store";
 import { encodeBase64, truncateDecimals } from "../helpers";
-import { useConstants } from "../hooks";
+import { useBalances, useConstants, useExchangeRate, useNextBatchTime, usePrices } from "../hooks";
 
 const UnbondForm: FC = () => {
   const wallet = useConnectedWallet();
-  const balances = useStore((state) => state.balances);
-  const lunaPrice = useStore((state) => state.prices?.luna);
-  const exchangeRate = useStore((state) => state.state?.exchangeRate);
-  const [steakPrice, setSteakPrice] = useState<number>();
+  const prices = usePrices();
+  const balances = useBalances();
+  const exchangeRate = useExchangeRate();
+  const nextBatchTime = useNextBatchTime();
   const [offerAmount, setOfferAmount] = useState<number>(0);
   const [returnAmount, setReturnAmount] = useState<number>(0);
   const [msgs, setMsgs] = useState<MsgExecuteContract[]>([]);
@@ -24,20 +23,12 @@ const UnbondForm: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
-    if (lunaPrice && exchangeRate) {
-      setSteakPrice(lunaPrice * exchangeRate);
-    } else {
-      setSteakPrice(undefined);
-    }
-  }, [lunaPrice, exchangeRate]);
-
-  useEffect(() => {
     if (wallet && contracts) {
       setMsgs([
-        new MsgExecuteContract(wallet.terraAddress, contracts["steak"], {
+        new MsgExecuteContract(wallet.terraAddress, contracts.steakToken, {
           send: {
-            contract: contracts["hub"],
-            amount: offerAmount,
+            contract: contracts.steakHub,
+            amount: (offerAmount * 1e6).toString(),
             msg: encodeBase64({ queue_unbond: {} }),
           },
         }),
@@ -55,7 +46,11 @@ const UnbondForm: FC = () => {
     setReturnAmount(exchangeRate ? truncateDecimals(newOfferAmount / exchangeRate) : 0);
   };
 
-  const mockTime = new Date();
+  const nextBatchTimeStr = nextBatchTime
+    ? new Date() < nextBatchTime
+      ? nextBatchTime.toLocaleString()
+      : "Now"
+    : "Unknown";
 
   return (
     <Box maxW="container.sm" mx="auto">
@@ -65,7 +60,7 @@ const UnbondForm: FC = () => {
           assetSymbol="STEAK"
           assetLogo="/steak.png"
           amount={offerAmount}
-          price={steakPrice}
+          price={prices.steak}
           balance={balances ? balances.usteak / 1e6 : 0}
           isEditable={true}
           onAmountChange={handleOfferAmountChange}
@@ -91,7 +86,7 @@ const UnbondForm: FC = () => {
           assetSymbol="LUNA"
           assetLogo="/luna.png"
           amount={returnAmount}
-          price={lunaPrice}
+          price={prices.luna}
           balance={balances ? balances.uluna / 1e6 : 0}
           isEditable={false}
           onAmountChange={() => {}}
@@ -100,7 +95,7 @@ const UnbondForm: FC = () => {
       <Box color="black" bg="white" p="6" mt="2" borderRadius="2xl" position="relative">
         <Box textAlign="center">
           <Text fontSize="3xl" fontWeight="800">
-            {mockTime.toLocaleString()}
+            {nextBatchTimeStr}
           </Text>
           <Text opacity="0.4" mt="3">
             Next Batch Time

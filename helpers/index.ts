@@ -1,7 +1,7 @@
 /**
  * Encode a JavaScript object into a base64 string
  */
-export function encodeBase64(obj: object | string | number): string {
+export function encodeBase64(obj: any): string {
   return Buffer.from(JSON.stringify(obj)).toString("base64");
 }
 

@@ -7,16 +7,14 @@ import Header from "./Header";
 import AssetInput from "./AssetInput";
 import ArrowDownIcon from "./ArrowDownIcon";
 import TxModal from "./TxModal";
-import { useStore } from "../store";
 import { truncateDecimals } from "../helpers";
-import { useConstants } from "../hooks";
+import { usePrices, useBalances, useExchangeRate, useConstants } from "../hooks";
 
 const BondForm: FC = () => {
   const wallet = useConnectedWallet();
-  const balances = useStore((state) => state.balances);
-  const lunaPrice = useStore((state) => state.prices?.luna);
-  const exchangeRate = useStore((state) => state.state?.exchangeRate);
-  const [steakPrice, setSteakPrice] = useState<number>();
+  const prices = usePrices();
+  const balances = useBalances();
+  const exchangeRate = useExchangeRate();
   const [offerAmount, setOfferAmount] = useState<number>(0);
   const [returnAmount, setReturnAmount] = useState<number>(0);
   const [msgs, setMsgs] = useState<MsgExecuteContract[]>([]);
@@ -24,19 +22,11 @@ const BondForm: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
-    if (lunaPrice && exchangeRate) {
-      setSteakPrice(lunaPrice * exchangeRate);
-    } else {
-      setSteakPrice(undefined);
-    }
-  }, [lunaPrice, exchangeRate]);
-
-  useEffect(() => {
     if (wallet && contracts) {
       setMsgs([
         new MsgExecuteContract(
           wallet.terraAddress,
-          contracts["hub"],
+          contracts.steakHub,
           {
             bond: {},
           },
@@ -66,7 +56,7 @@ const BondForm: FC = () => {
           assetSymbol="LUNA"
           assetLogo="/luna.png"
           amount={offerAmount}
-          price={lunaPrice}
+          price={prices.luna}
           balance={balances ? balances.uluna / 1e6 : 0}
           isEditable={true}
           onAmountChange={handleOfferAmountChange}
@@ -92,7 +82,7 @@ const BondForm: FC = () => {
           assetSymbol="STEAK"
           assetLogo="/steak.png"
           amount={returnAmount}
-          price={steakPrice}
+          price={prices.steak}
           balance={balances ? balances.usteak / 1e6 : 0}
           isEditable={false}
           onAmountChange={() => {}}

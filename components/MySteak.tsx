@@ -3,7 +3,7 @@ import NextLink from "next/link";
 import { FC } from "react";
 
 import Header from "./Header";
-import { useStore } from "../store";
+import { usePrices, useBalances } from "../hooks";
 import { formatNumber } from "../helpers";
 
 const bondOrUnbondStyle = {
@@ -23,16 +23,11 @@ const bondOrUnbondStyle = {
 };
 
 const MySteak: FC = () => {
-  const usteak = useStore((state) => state.balances?.usteak);
-  const usdPerSteak = useStore((state) => {
-    if (state.state && state.prices) {
-      return state.state.exchangeRate * state.prices.luna;
-    }
-    return undefined;
-  });
+  const prices = usePrices();
+  const balances = useBalances();
 
-  const steakBalance = usteak ? usteak / 1e6 : undefined;
-  const steakValue = steakBalance && usdPerSteak ? steakBalance * usdPerSteak : undefined;
+  const steakBalance = balances ? balances.usteak / 1e6 : undefined;
+  const steakValue = steakBalance && prices.steak ? steakBalance * prices.steak : undefined;
 
   return (
     <>

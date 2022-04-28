@@ -41,6 +41,22 @@ export type Cw20BalanceResponse = {
 };
 
 /**
+ * Corresponding to Rust strust [`terra_cosmwasm::ExchangeRateResponseItem`](https://github.com/terra-money/terra-cosmwasm/blob/v2.2.0/packages/terra-cosmwasm/src/query.rs#L57-L62)
+ */
+export type ExchangeRateItem = {
+  quote_denom: string;
+  exchange_rate: string;
+};
+
+/**
+ * Corresponding to Rust strust [`terra_cosmwasm::ExchangeRateResponse`](https://github.com/terra-money/terra-cosmwasm/blob/v2.2.0/packages/terra-cosmwasm/src/query.rs#L64-L69)
+ */
+export type ExchangeRateResponse = {
+  base_denom: string;
+  exchange_rates: ExchangeRateItem[];
+};
+
+/**
  * Response type of the [`multiquery`](https://github.com/st4k3h0us3/multiquery) contract
  */
 export type MultiqueryResponse = {
@@ -49,7 +65,17 @@ export type MultiqueryResponse = {
 }[];
 
 /**
- * Response type of [`steak::hub::StateResponse`](https://github.com/st4k3h0us3/steak-contracts/blob/v1.0.0-rc0/packages/steak/src/hub.rs#L118-L128)
+ * Response type of [`steak::hub::QueryMsg::Config`](https://github.com/st4k3h0us3/steak-contracts/blob/v1.0.0-rc0/packages/steak/src/hub.rs#L106-L116)
+ */
+export type ConfigResponse = {
+  steak_token: string;
+  epoch_period: number;
+  unbond_period: number;
+  validators: string[];
+};
+
+/**
+ * Response type of [`steak::hub::QueryMsg::State`](https://github.com/st4k3h0us3/steak-contracts/blob/v1.0.0-rc0/packages/steak/src/hub.rs#L118-L128)
  */
 export type StateResponse = {
   total_usteak: string;
@@ -59,10 +85,33 @@ export type StateResponse = {
 };
 
 /**
- * Response type of Coingecko's [`/simple/price`](https://www.coingecko.com/en/api/documentation) API for Luna in USD
+ * Response type of [`steak::hub::QueryMsg::PendingBatch`](https://github.com/st4k3h0us3/steak-contracts/blob/v1.0.0-rc0/packages/steak/src/hub.rs#L130-L138)
  */
-export type CoingeckeLunaUsdResponse = {
-  "terra-luna": {
-    usd: number;
-  };
+export type PendingBatch = {
+  id: number;
+  usteak_to_burn: string;
+  est_unbond_start_time: number;
 };
+
+/**
+ * Corresponding to Rust struct [`steak::hub::Batch`](https://github.com/st4k3h0us3/steak-contracts/blob/v1.0.0-rc0/packages/steak/src/hub.rs#L140-L150)
+ */
+export type Batch = {
+  id: number;
+  total_shares: string;
+  uluna_unclaimed: string;
+  est_unbond_end_time: number;
+};
+
+/**
+ * Corresponding to Rust struct [`steak::hub::UnbondRequestsByUserResponseItem`](https://github.com/st4k3h0us3/steak-contracts/blob/v1.0.0-rc0/packages/steak/src/hub.rs#L179-L185)
+ */
+export type UnbondRequestsByUserResponseItem = {
+  id: number;
+  shares: string;
+};
+
+/**
+ * Response type of [`steak::hub::QueryMsg::UnbondRequestsByUser`](https://github.com/st4k3h0us3/steak-contracts/blob/v1.0.0-rc0/packages/steak/src/hub.rs#L98-L103)
+ */
+export type UnbondRequestsByUserResponse = UnbondRequestsByUserResponseItem[];
