@@ -23,11 +23,11 @@ const ModalWrapper: FC<Props> = ({ showHeader = true, children, isOpen, onClose,
       isOpen={isOpen}
       onClose={onClose}
       size="xl"
-      blockScrollOnMount={true}
-      preserveScrollBarGap={true}
+      blockScrollOnMount={false}
+      preserveScrollBarGap={false}
     >
       <ModalOverlay />
-      <ModalContent mx="4">
+      <ModalContent ml="4" mr="8">
         {showHeader ? (
           <Flex justify="space-between" px={["0", "6"]} pb="2" align="center">
             <ModalHeader flex={1} fontSize="2xl" fontWeight="800">
