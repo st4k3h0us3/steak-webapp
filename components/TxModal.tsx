@@ -33,13 +33,12 @@ function CloseButton(onClick: () => void) {
 }
 
 type Props = {
-  title: string;
   msgs: Msg[];
   isOpen: boolean;
   onClose: () => void;
 };
 
-const TxModal: FC<Props> = ({ title, msgs, isOpen, onClose }) => {
+const TxModal: FC<Props> = ({ msgs, isOpen, onClose }) => {
   const wallet = useConnectedWallet();
   const store = useStore();
   const { gasOptions } = useConstants(wallet?.network.name);
@@ -119,7 +118,7 @@ const TxModal: FC<Props> = ({ title, msgs, isOpen, onClose }) => {
   }, [isOpen]);
 
   return (
-    <ModalWrapper showHeader={false} title={title} isOpen={isOpen} onClose={onClose}>
+    <ModalWrapper showHeader={false} isOpen={isOpen} onClose={onClose}>
       <Box w="100%" textAlign="center">
         <Text fontSize="xl" textStyle="minibutton" mt="10">
           {txStatusHeader}

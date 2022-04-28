@@ -27,6 +27,11 @@ export const usePrices = () => {
   });
 };
 
+export const useWithdrawableAmount = () => {
+  const unbondRequests = useUnbondRequests();
+  return unbondRequests.reduce((a, b) => (a + b.status === "completed" ? b.amount : 0), 0);
+};
+
 export const useBalances = () => useStore((state) => state.balances);
 
 export const useExchangeRate = () => useStore((state) => state.hubState?.exchangeRate);

@@ -56,7 +56,7 @@ const Navbar: FC = () => {
   // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/35572#issuecomment-493942129
   const btnRef = React.useRef() as React.MutableRefObject<HTMLButtonElement>;
 
-  const isBack = ["/bond", "/unbond", "/withdraw-unbonded"].includes(asPath);
+  const isBack = ["/bond", "/unbond", "/withdraw"].includes(asPath);
 
   return (
     <Box w="100%" py="6">

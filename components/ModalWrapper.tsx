@@ -12,12 +12,12 @@ import {
 type Props = {
   showHeader?: boolean;
   children?: ReactNode;
-  title: string;
+  title?: string;
   isOpen: boolean;
   onClose: () => void;
 };
 
-const ModalWrapper: FC<Props> = ({ showHeader = true, children, isOpen, onClose, title }) => {
+const ModalWrapper: FC<Props> = ({ showHeader = true, children, isOpen, onClose, title = "" }) => {
   return (
     <Modal
       isOpen={isOpen}

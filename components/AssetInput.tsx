@@ -97,16 +97,14 @@ const AssetInput: FC<Props> = ({
             </Box>
           </NumberInput>
           <Flex align="center" justify="space-between" mt="1">
-            <Box>
-              <HStack spacing="4">
-                <Text variant="dimmed" fontSize="sm">
-                  In Wallet:
-                </Text>
-                <Text fontSize="sm" ml="2">
-                  {formatNumber(balance, 3)}
-                </Text>
-              </HStack>
-            </Box>
+            <HStack spacing="4">
+              <Text variant="dimmed" fontSize="sm">
+                In Wallet:
+              </Text>
+              <Text fontSize="sm" ml="2">
+                {formatNumber(balance, 3)}
+              </Text>
+            </HStack>
             <Box>{maxBtn}</Box>
           </Flex>
         </Box>

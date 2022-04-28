@@ -102,7 +102,7 @@ const BondForm: FC = () => {
         <Text mt="3" textStyle="small" variant="dimmed" textAlign="center">
           {""}
         </Text>
-        <TxModal isOpen={isOpen} onClose={onClose} title="Stake LUNA" msgs={msgs} />
+        <TxModal isOpen={isOpen} onClose={onClose} msgs={msgs} />
       </Box>
     </Box>
   );
