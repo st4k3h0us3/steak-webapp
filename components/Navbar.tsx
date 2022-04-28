@@ -81,12 +81,19 @@ const Navbar: FC = () => {
           </Button>
         </HStack>
       </Flex>
-      <Drawer isOpen={isOpen} placement="left" size="sm" onClose={onClose} finalFocusRef={btnRef}>
+      <Drawer
+        isOpen={isOpen}
+        placement="left"
+        size="sm"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+        preserveScrollBarGap={true}
+      >
         <DrawerOverlay />
         <DrawerContent>
           <Flex
             height="100%"
-            bg="brand.lightBrown"
+            bg="brand.lighterBrown"
             zIndex="100"
             px={["6", null, "12"]}
             py="8"

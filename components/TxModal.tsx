@@ -1,4 +1,4 @@
-import { Box, Button, Flex, HStack, Link, Spinner, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Link, Spinner, Text } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { Msg } from "@terra-money/terra.js";
 import {
@@ -6,7 +6,6 @@ import {
   CreateTxFailed,
   Timeout,
   TxFailed,
-  TxResult,
   TxUnspecifiedError,
   UserDenied,
 } from "@terra-money/wallet-provider";
@@ -121,7 +120,7 @@ const TxModal: FC<Props> = ({ title, msgs, isOpen, onClose }) => {
   }, [isOpen]);
 
   return (
-    <ModalWrapper isOpen={isOpen} onClose={onClose} title={title}>
+    <ModalWrapper showHeader={false} title={title} isOpen={isOpen} onClose={onClose}>
       <Box w="100%" textAlign="center">
         <Text fontSize="xl" textStyle="minibutton" mt="10">
           {txStatusHeader}
@@ -129,7 +128,7 @@ const TxModal: FC<Props> = ({ title, msgs, isOpen, onClose }) => {
         <Flex w="100%" h="150px" align="center" justify="center">
           {txStatusIcon}
         </Flex>
-        <Box mt="3" mb="6">
+        <Box mt="3" mb="10">
           {txStatusDetail}
         </Box>
       </Box>

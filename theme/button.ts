@@ -10,12 +10,8 @@ const button = {
       px: "10",
       py: "2",
       _hover: {
-        bg: "white",
+        bg: "transparent",
         color: "brand.red",
-      },
-      _disabled: {
-        bg: "rgba(217, 71, 75, 0.75)",
-        color: "white",
       },
     },
     mini: {

@@ -8,10 +8,10 @@ import AssetInput from "./AssetInput";
 import ArrowDownIcon from "./ArrowDownIcon";
 import TxModal from "./TxModal";
 import { useStore } from "../store";
-import { truncateDecimals } from "../helpers";
+import { encodeBase64, truncateDecimals } from "../helpers";
 import { useConstants } from "../hooks";
 
-const BondForm: FC = () => {
+const UnbondForm: FC = () => {
   const wallet = useConnectedWallet();
   const balances = useStore((state) => state.balances);
   const lunaPrice = useStore((state) => state.prices?.luna);
@@ -34,16 +34,13 @@ const BondForm: FC = () => {
   useEffect(() => {
     if (wallet && contracts) {
       setMsgs([
-        new MsgExecuteContract(
-          wallet.terraAddress,
-          contracts["hub"],
-          {
-            bond: {},
+        new MsgExecuteContract(wallet.terraAddress, contracts["steak"], {
+          send: {
+            contract: contracts["hub"],
+            amount: offerAmount,
+            msg: encodeBase64({ queue_unbond: {} }),
           },
-          {
-            uluna: offerAmount * 1e6,
-          }
-        ),
+        }),
       ]);
     } else {
       setMsgs([]);
@@ -60,16 +57,18 @@ const BondForm: FC = () => {
     setOfferAmount(exchangeRate ? truncateDecimals(newReturnAmount * exchangeRate) : 0);
   };
 
+  const mockTime = new Date();
+
   return (
     <Box maxW="container.sm" mx="auto">
-      <Header text="Stake LUNA" />
+      <Header text="Unstake STEAK" />
       <Box position="relative">
         <AssetInput
-          assetSymbol="LUNA"
-          assetLogo="/luna.png"
+          assetSymbol="STEAK"
+          assetLogo="/steak.png"
           amount={offerAmount}
-          price={lunaPrice}
-          balance={balances ? balances.uluna / 1e6 : 0}
+          price={steakPrice}
+          balance={balances ? balances.usteak / 1e6 : 0}
           showMaxBtn={true}
           onAmountChange={handleOfferAmountChange}
         />
@@ -91,14 +90,31 @@ const BondForm: FC = () => {
           />
         </Flex>
         <AssetInput
-          assetSymbol="STEAK"
-          assetLogo="/steak.png"
+          assetSymbol="LUNA"
+          assetLogo="/luna.png"
           amount={returnAmount}
-          price={steakPrice}
-          balance={balances ? balances.usteak / 1e6 : 0}
+          price={lunaPrice}
+          balance={balances ? balances.uluna / 1e6 : 0}
           showMaxBtn={false}
           onAmountChange={handleReturnAmountChange}
         />
+      </Box>
+      <Box color="black" bg="white" p="6" mt="2" borderRadius="2xl" position="relative">
+        <Box textAlign="center">
+          <Text fontSize="3xl" fontWeight="800">
+            {mockTime.toLocaleString()}
+          </Text>
+          <Text opacity="0.4" mt="3">
+            Next Batch Time
+          </Text>
+        </Box>
+        <Text fontSize="sm" opacity="0.4" mt="6">
+          Due to limitations imposed by the Terra chain, the protocol may not be able to serve all
+          unstaking requests from users on-demand. Instead, unstaking requests are collected over a
+          3-day period, and submitted together in a batch. The unstaking period lasts for 21 days
+          after the batch is submitted. Use the Steak webapp to claim the unstaked Luna after the 21
+          days.
+        </Text>
       </Box>
       <Box textAlign="center">
         <Button
@@ -109,7 +125,7 @@ const BondForm: FC = () => {
           isLoading={false}
           isDisabled={!wallet || offerAmount == 0}
         >
-          Stake
+          Unstake
         </Button>
         <Text mt="3" textStyle="small" variant="dimmed" textAlign="center">
           {""}
@@ -120,4 +136,4 @@ const BondForm: FC = () => {
   );
 };
 
-export default BondForm;
+export default UnbondForm;

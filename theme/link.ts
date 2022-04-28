@@ -11,7 +11,7 @@ const link = {
       py: "2",
       _hover: {
         color: "brand.red",
-        bg: "white",
+        bg: "transparent",
         textDecoration: "none",
       },
     },
