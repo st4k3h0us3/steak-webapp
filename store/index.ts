@@ -32,6 +32,7 @@ export type State = {
     usteak: number;
   };
   hubState?: {
+    totalLunaLocked: number;
     exchangeRate: number;
   };
   pendingBatch?: {
@@ -266,6 +267,7 @@ export const useStore = create<State>((set) => ({
         usteak: Number(usteakBalanceResponse.balance),
       },
       hubState: {
+        totalLunaLocked: Number(hubStateResponse["total_uluna"]) / 1e6,
         exchangeRate: Number(hubStateResponse["exchange_rate"]),
       },
       pendingBatch: {

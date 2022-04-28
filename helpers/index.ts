@@ -33,7 +33,9 @@ export function truncateDecimals(x: number, decPlaces = 6) {
  * Format a number
  */
 export function formatNumber(x: number, decPlaces = 2) {
-  return x.toFixed(decPlaces).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const integerPart = Math.floor(x);
+  const decimalPart = x - integerPart;
+  return integerPart.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + decimalPart.toFixed(decPlaces).slice(1);
 }
 
 /**
