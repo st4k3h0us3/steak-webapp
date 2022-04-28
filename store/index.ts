@@ -17,8 +17,8 @@ import {
   UnbondRequestsByUserResponse,
 } from "../types";
 
-type UnbondRequestParsed = {
-  status: "pending" | "unbonding" | "unbonded";
+export type UnbondRequestParsed = {
+  status: "pending" | "unbonding" | "completed";
   amount: number; // means `usteak` amount if the batch has not been submitted, or `uluna` if already submitted
   startTime: Date;
   finishTime: Date;
@@ -250,7 +250,7 @@ export const useStore = create<State>((set) => ({
         const batch = batchesById[unbondRequest.id]!;
         const finishTime = new Date(batch["est_unbond_end_time"]);
         unbondRequestsParsed.push({
-          status: currentTime < finishTime ? "unbonding" : "unbonded",
+          status: currentTime < finishTime ? "unbonding" : "completed",
           amount: (Number(batch["uluna_unclaimed"]) * Number(unbondRequest.shares)) / Number(batch["total_shares"]),
           startTime: new Date((batch["est_unbond_end_time"] - config["unbond_period"]) * 1000),
           finishTime,

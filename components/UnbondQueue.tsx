@@ -1,34 +1,20 @@
 import { Box, Table, Thead, Tbody, Tr, Th } from "@chakra-ui/react";
+import { useUnbondRequests } from "hooks";
 import { FC } from "react";
 
 import Header from "./Header";
-import UnbondQueueItem from "./UnbondQueueItem";
-
-const mockUnbondRequests = [
-  {
-    status: "pending",
-    amount: "xxx,xxx.xx STEAK",
-    startTime: new Date(),
-    finishTime: new Date("2025-04-23"),
-  },
-  {
-    status: "unbonding",
-    amount: "xxx,xxx.xx LUNA",
-    startTime: new Date(),
-    finishTime: new Date("2023-03-12"),
-  },
-  {
-    status: "completed",
-    amount: "xxx,xxx.xx LUNA",
-    startTime: new Date(),
-    finishTime: new Date(),
-  },
-];
+import { UnbondQueueItem, UnbondQueueEmpty } from "./UnbondQueueItem";
 
 const UnbondQueue: FC = () => {
-  const items = mockUnbondRequests.map((unbondRequest, index) => (
-    <UnbondQueueItem key={index} {...unbondRequest} />
-  ));
+  const unbondRequests = useUnbondRequests();
+
+  const items = unbondRequests.length > 1
+    ? (
+      unbondRequests.map((unbondRequest, index) => <UnbondQueueItem key={index} {...unbondRequest} />)
+    )
+    : (
+      <UnbondQueueEmpty />
+    );
 
   return (
     <>

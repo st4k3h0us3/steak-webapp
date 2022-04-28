@@ -35,3 +35,10 @@ export function truncateDecimals(x: number, decPlaces = 6) {
 export function formatNumber(x: number, decPlaces = 2) {
   return x.toFixed(decPlaces).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+/**
+ * Make the first letter of a string uppercase
+ */
+export function capitalizeFirstLetter(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}

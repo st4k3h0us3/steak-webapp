@@ -2,18 +2,20 @@ import { chakra, Tr, Td, Text } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { FC } from "react";
 
-type Props = {
-  status: string;
-  amount: string;
-  startTime: Date;
-  finishTime: Date;
+import { capitalizeFirstLetter, formatNumber } from "../helpers";
+import { UnbondRequestParsed } from "../store";
+
+const UnbondQueueEmpty: FC = () => {
+  return (
+    <Tr bg="white" mb="2">
+      <Td colSpan={4} py="6" textAlign="center" borderBottom="none" borderRadius="2xl">
+        No active unbonding request
+      </Td>
+    </Tr>
+  );
 };
 
-function capitalizeFirstLetter(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-const UnbondQueueItem: FC<Props> = ({ status, amount, startTime, finishTime }) => {
+const UnbondQueueItem: FC<UnbondRequestParsed> = ({ status, amount, startTime, finishTime }) => {
   const currentTime = new Date();
 
   const finishTimeItem =
@@ -47,7 +49,7 @@ const UnbondQueueItem: FC<Props> = ({ status, amount, startTime, finishTime }) =
         {capitalizeFirstLetter(status)}
       </Td>
       <Td borderBottom="none" py="6" minW="200px">
-        {amount}
+        {formatNumber(amount, 3) + status === "pending" ? " STEAK" : "LUNA"}
       </Td>
       <Td borderBottom="none" py="6" minW="230px">
         {startTime.toLocaleString()}
@@ -59,4 +61,4 @@ const UnbondQueueItem: FC<Props> = ({ status, amount, startTime, finishTime }) =
   );
 };
 
-export default UnbondQueueItem;
+export { UnbondQueueItem, UnbondQueueEmpty };
