@@ -48,13 +48,11 @@ const UnbondForm: FC = () => {
   }, [wallet?.network.name, wallet?.terraAddress, offerAmount]);
 
   const handleOfferAmountChange = (newOfferAmount: number) => {
+    if (balances) {
+      newOfferAmount = Math.min(newOfferAmount, balances.usteak / 1e6);
+    }
     setOfferAmount(newOfferAmount);
     setReturnAmount(exchangeRate ? truncateDecimals(newOfferAmount / exchangeRate) : 0);
-  };
-
-  const handleReturnAmountChange = (newReturnAmount: number) => {
-    setReturnAmount(newReturnAmount);
-    setOfferAmount(exchangeRate ? truncateDecimals(newReturnAmount * exchangeRate) : 0);
   };
 
   const mockTime = new Date();
@@ -69,7 +67,7 @@ const UnbondForm: FC = () => {
           amount={offerAmount}
           price={steakPrice}
           balance={balances ? balances.usteak / 1e6 : 0}
-          showMaxBtn={true}
+          isEditable={true}
           onAmountChange={handleOfferAmountChange}
         />
         <Flex
@@ -95,8 +93,8 @@ const UnbondForm: FC = () => {
           amount={returnAmount}
           price={lunaPrice}
           balance={balances ? balances.uluna / 1e6 : 0}
-          showMaxBtn={false}
-          onAmountChange={handleReturnAmountChange}
+          isEditable={false}
+          onAmountChange={() => {}}
         />
       </Box>
       <Box color="black" bg="white" p="6" mt="2" borderRadius="2xl" position="relative">

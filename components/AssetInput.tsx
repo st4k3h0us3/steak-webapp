@@ -17,7 +17,7 @@ type Props = {
   amount: number;
   price?: number;
   balance?: number;
-  showMaxBtn?: boolean;
+  isEditable?: boolean;
   onAmountChange?: (newAmount: number) => void;
 };
 
@@ -27,7 +27,7 @@ const AssetInput: FC<Props> = ({
   amount,
   price = 0,
   balance = 0,
-  showMaxBtn = false,
+  isEditable = false,
   onAmountChange = () => {},
 }) => {
   // how do i disable the "unused variable" warning here??
@@ -35,7 +35,7 @@ const AssetInput: FC<Props> = ({
     onAmountChange(valueAsNumber);
   };
 
-  const maxBtn = showMaxBtn ? (
+  const maxBtn = isEditable ? (
     <Button type="button" variant="mini" onClick={() => onAmountChange(balance)} isDisabled={false}>
       Max
     </Button>
@@ -70,13 +70,13 @@ const AssetInput: FC<Props> = ({
           <NumberInput
             value={amount}
             min={0}
-            max={12345}
+            max={undefined}
             precision={6}
             onChange={handleAmountChange}
             onBlur={() => {}}
             onKeyPress={() => {}}
             clampValueOnBlur={true}
-            isDisabled={false}
+            isDisabled={!isEditable}
           >
             <NumberInputField
               h="16"
@@ -86,6 +86,11 @@ const AssetInput: FC<Props> = ({
               p="4"
               pt="0"
               placeholder="0.0"
+              _disabled={{
+                bg: "brand.lighterBrown",
+                opacity: "1.0",
+                cursor: "not-allowed",
+              }}
             />
             <Box position="absolute" bottom="2" right="1.1rem">
               <Text fontSize="small">${formatNumber(amount * price, 2)}</Text>

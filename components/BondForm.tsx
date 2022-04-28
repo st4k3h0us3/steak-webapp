@@ -51,13 +51,11 @@ const BondForm: FC = () => {
   }, [wallet?.network.name, wallet?.terraAddress, offerAmount]);
 
   const handleOfferAmountChange = (newOfferAmount: number) => {
+    if (balances) {
+      newOfferAmount = Math.min(newOfferAmount, balances.uluna / 1e6);
+    }
     setOfferAmount(newOfferAmount);
     setReturnAmount(exchangeRate ? truncateDecimals(newOfferAmount / exchangeRate) : 0);
-  };
-
-  const handleReturnAmountChange = (newReturnAmount: number) => {
-    setReturnAmount(newReturnAmount);
-    setOfferAmount(exchangeRate ? truncateDecimals(newReturnAmount * exchangeRate) : 0);
   };
 
   return (
@@ -70,7 +68,7 @@ const BondForm: FC = () => {
           amount={offerAmount}
           price={lunaPrice}
           balance={balances ? balances.uluna / 1e6 : 0}
-          showMaxBtn={true}
+          isEditable={true}
           onAmountChange={handleOfferAmountChange}
         />
         <Flex
@@ -96,8 +94,8 @@ const BondForm: FC = () => {
           amount={returnAmount}
           price={steakPrice}
           balance={balances ? balances.usteak / 1e6 : 0}
-          showMaxBtn={false}
-          onAmountChange={handleReturnAmountChange}
+          isEditable={false}
+          onAmountChange={() => {}}
         />
       </Box>
       <Box textAlign="center">
