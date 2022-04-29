@@ -4,6 +4,7 @@ import NextLink from "next/link";
 import { FC } from "react";
 
 import Header from "./Header";
+import AstroportIcon from "./AstroportIcon";
 import { usePrices, useBalances, useConstants } from "../hooks";
 import { formatNumber } from "../helpers";
 
@@ -40,7 +41,22 @@ const MySteak: FC = () => {
           isExternal={true}
           href={`https://app.astroport.fi/swap?from=uluna&to=${contracts?.steakToken}`}
         >
-          <Flex w="100%" h="100%" justify="center" align="center">
+          <Flex
+            display={["none", "flex", null, null]}
+            w="100%"
+            h="100%"
+            justify="center"
+            align="center"
+          >
+            Trade STEAK at <AstroportIcon w="1.6rem" h="1.6rem" ml="2" mr="1" /> Astroport
+          </Flex>
+          <Flex
+            display={["flex", "none", null, null]}
+            w="100%"
+            h="100%"
+            justify="center"
+            align="center"
+          >
             Trade STEAK
           </Flex>
         </Link>

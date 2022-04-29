@@ -7,7 +7,8 @@ const link = {
       borderRadius: "md",
       color: "white",
       bg: "brand.red",
-      px: "10",
+      pl: "5",
+      pr: "6",
       _hover: {
         color: "brand.red",
         bg: "transparent",
