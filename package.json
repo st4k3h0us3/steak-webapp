@@ -5,8 +5,8 @@
   "license": "GPL-v3-or-later",
   "scripts": {
     "dev": "next dev",
-    "test": "jest",
-    "build": "next build"
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.8",
@@ -14,14 +14,11 @@
     "@terra-money/wallet-provider": "^3.8.1",
     "next": "^12.1.5",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-query": "^3.38.0",
     "zustand": "^4.0.0-rc.0"
   },
   "devDependencies": {
     "@types/node": "^17.0.25",
     "@types/react": "^17.0.44",
-    "@types/react-dom": "^17.0.15",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "eslint": "^8.13.0",

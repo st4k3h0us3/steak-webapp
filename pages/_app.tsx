@@ -3,31 +3,25 @@ import {
   WalletControllerChainOptions,
   WalletProvider,
   StaticWalletProvider,
+  getChainOptions,
 } from "@terra-money/wallet-provider";
-import { AppProps } from "next/app";
-import { QueryClient, QueryClientProvider } from "react-query";
+import App, { AppProps, AppContext } from "next/app";
 
 import Layout from "../components/Layout";
 import theme from "../theme";
 
-const CustomApp = ({
+const SteakApp = ({
   Component,
   pageProps,
   defaultNetwork,
   walletConnectChainIds,
 }: AppProps & WalletControllerChainOptions) => {
-  const queryClient = new QueryClient({
-    // TODO: add appropriate configs here
-  });
-
   const main = (
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider theme={theme}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ChakraProvider>
-    </QueryClientProvider>
+    <ChakraProvider theme={theme}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </ChakraProvider>
   );
 
   return typeof window !== "undefined" ? (
@@ -41,4 +35,10 @@ const CustomApp = ({
   );
 };
 
-export default CustomApp;
+SteakApp.getInitialProps = async (appContext: AppContext) => {
+  const appProps = await App.getInitialProps(appContext);
+  const chainOptions = await getChainOptions();
+  return { ...appProps, ...chainOptions };
+};
+
+export default SteakApp;
