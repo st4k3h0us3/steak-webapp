@@ -11,10 +11,14 @@ const styles = {
       _focus: {
         boxShadow: "none",
       },
+      // https://github.com/chakra-ui/chakra-ui/issues/3553#issuecomment-843043883
+      "&:focus:not([data-focus-visible-added])": {
+        shadow: "xl", // default shadow
+      },
     },
     header: {
       borderBottomWidth: 0,
-      fontSize: "xl",
+      fontSize: "2xl",
       p: 0,
     },
     body: {
