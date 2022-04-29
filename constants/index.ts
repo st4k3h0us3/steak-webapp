@@ -6,7 +6,7 @@ export const GRPC_GATEWAY_URL = {
 export const GAS_OPTIONS = {
   gas: undefined, // leave undefined so it is estimated when signing
   gasPrices: "0.15uusd",
-  gasAdjustment: 1.4,
+  gasAdjustment: 1.2,
 };
 
 export const CONTRACTS = {

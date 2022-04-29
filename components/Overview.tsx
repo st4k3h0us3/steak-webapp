@@ -27,7 +27,7 @@ const Overview: FC = () => {
           secondaryText="LUNA per STEAK"
           additionalText="Exchange ratio"
         />
-        <OverviewItem primaryText="No data" secondaryText="_" additionalText="Current APY" />
+        <OverviewItem primaryText="TBD" secondaryText="_" additionalText="Current APY" />
       </SimpleGrid>
     </>
   );

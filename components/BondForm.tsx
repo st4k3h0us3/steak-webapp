@@ -41,9 +41,6 @@ const BondForm: FC = () => {
   }, [wallet?.network.name, wallet?.terraAddress, offerAmount]);
 
   const handleOfferAmountChange = (newOfferAmount: number) => {
-    if (balances) {
-      newOfferAmount = Math.min(newOfferAmount, balances.uluna / 1e6);
-    }
     setOfferAmount(newOfferAmount);
     setReturnAmount(exchangeRate ? truncateDecimals(newOfferAmount / exchangeRate) : 0);
   };
@@ -55,7 +52,6 @@ const BondForm: FC = () => {
         <AssetInput
           assetSymbol="LUNA"
           assetLogo="/luna.png"
-          amount={offerAmount}
           price={prices.luna}
           balance={balances ? balances.uluna / 1e6 : 0}
           isEditable={true}
@@ -81,11 +77,10 @@ const BondForm: FC = () => {
         <AssetInput
           assetSymbol="STEAK"
           assetLogo="/steak.png"
-          amount={returnAmount}
           price={prices.steak}
           balance={balances ? balances.usteak / 1e6 : 0}
           isEditable={false}
-          onAmountChange={() => {}}
+          fixedAmount={returnAmount}
         />
       </Box>
       <Box textAlign="center">

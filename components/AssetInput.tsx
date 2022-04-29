@@ -9,34 +9,39 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { formatNumber } from "helpers";
-import { FC } from "react";
+import { FC, useState } from "react";
 
 type Props = {
   assetSymbol: string;
   assetLogo: string;
-  amount: number;
   price?: number;
   balance?: number;
-  isEditable?: boolean;
+  isEditable?: boolean; // important
+  fixedAmount?: number; // must supply if `isEditable` is set to false
   onAmountChange?: (newAmount: number) => void;
 };
 
 const AssetInput: FC<Props> = ({
   assetSymbol,
   assetLogo,
-  amount,
   price = 0,
   balance = 0,
-  isEditable = false,
+  isEditable = true,
+  fixedAmount,
   onAmountChange = () => {},
 }) => {
-  // how do i disable the "unused variable" warning here??
-  const handleAmountChange = (valueAsString: string, valueAsNumber: number) => {
-    onAmountChange(valueAsNumber);
-  };
+  const [amount, setAmount] = useState<number>(0);
 
   const maxBtn = isEditable ? (
-    <Button type="button" variant="mini" onClick={() => onAmountChange(balance)} isDisabled={false}>
+    <Button
+      type="button"
+      variant="mini"
+      onClick={() => {
+        setAmount(balance);
+        onAmountChange(balance);
+      }}
+      isDisabled={false}
+    >
       Max
     </Button>
   ) : null;
@@ -68,15 +73,18 @@ const AssetInput: FC<Props> = ({
         </Box>
         <Box flex="1" ml={[null, null, "8"]} mt={["4", null, "0"]}>
           <NumberInput
-            value={amount}
+            defaultValue={0}
+            value={fixedAmount ?? amount} // if no external fixed amount is set, then use the internal amount
             min={0}
-            max={undefined}
+            max={isEditable ? balance : undefined} // if not editable, then do not set a max
             precision={6}
-            onChange={handleAmountChange}
-            onBlur={() => {}}
-            onKeyPress={() => {}}
-            clampValueOnBlur={true}
+            onChange={(value: string) => {
+              console.log("value:", value);
+              setAmount(Number(value));
+              onAmountChange(Number(value));
+            }}
             isDisabled={!isEditable}
+            clampValueOnBlur={true}
           >
             <NumberInputField
               h="16"
@@ -93,7 +101,7 @@ const AssetInput: FC<Props> = ({
               }}
             />
             <Box position="absolute" bottom="2" right="1.1rem">
-              <Text fontSize="small">${formatNumber(amount * price, 2)}</Text>
+              <Text fontSize="small">${formatNumber(price * (fixedAmount ?? amount), 2)}</Text>
             </Box>
           </NumberInput>
           <Flex align="center" justify="space-between" mt="1">

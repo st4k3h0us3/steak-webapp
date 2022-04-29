@@ -17,9 +17,10 @@ const link = {
     },
     footer: {
       color: "white",
-      _hover: {
-        textDecoration: "none",
-      },
+      textUnderlineOffset: "0.3rem",
+    },
+    docs: {
+      textUnderlineOffset: "0.3rem",
     },
   },
 };

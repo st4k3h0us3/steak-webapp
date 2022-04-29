@@ -47,14 +47,18 @@ export type State = {
 export const useStore = create<State>((set) => ({
   priceLunaUsd: undefined,
   balances: undefined,
-  wallet: undefined,
-  state: undefined,
+  hubState: undefined,
   pendingBatch: undefined,
   unbondRequests: undefined,
 
   update: async (wallet?: ConnectedWallet) => {
     if (!wallet) {
-      return set({});
+      return set({
+        balances: undefined,
+        hubState: undefined,
+        pendingBatch: undefined,
+        unbondRequests: undefined,
+      });
     }
 
     if (wallet.network.name !== "mainnet" && wallet.network.name !== "testnet") {
@@ -200,7 +204,9 @@ export const useStore = create<State>((set) => ({
     const config: ConfigResponse = decodeBase64(hubConfigResult.data);
     const pendingBatch: PendingBatch = decodeBase64(pendingBatchResult.data);
 
-    const unbondRequests: UnbondRequestsByUserResponse = decodeBase64(unbondRequestsByUserResult.data);
+    const unbondRequests: UnbondRequestsByUserResponse = decodeBase64(
+      unbondRequestsByUserResult.data
+    );
     const ids: number[] = [];
     for (const unbondRequest of unbondRequests) {
       if (unbondRequest.id !== pendingBatch.id) {
@@ -245,19 +251,33 @@ export const useStore = create<State>((set) => ({
           status: "pending",
           amount: Number(unbondRequest.shares),
           startTime: new Date(pendingBatch["est_unbond_start_time"] * 1000),
-          finishTime: new Date((pendingBatch["est_unbond_start_time"] + config["unbond_period"]) * 1000),
+          finishTime: new Date(
+            (pendingBatch["est_unbond_start_time"] + config["unbond_period"]) * 1000
+          ),
         });
       } else {
         const batch = batchesById[unbondRequest.id]!;
-        const finishTime = new Date(batch["est_unbond_end_time"]);
+        const finishTime = new Date(batch["est_unbond_end_time"] * 1000);
         unbondRequestsParsed.push({
           status: currentTime < finishTime ? "unbonding" : "completed",
-          amount: (Number(batch["uluna_unclaimed"]) * Number(unbondRequest.shares)) / Number(batch["total_shares"]),
+          amount:
+            (Number(batch["uluna_unclaimed"]) * Number(unbondRequest.shares)) /
+            Number(batch["total_shares"]),
           startTime: new Date((batch["est_unbond_end_time"] - config["unbond_period"]) * 1000),
           finishTime,
         });
       }
     }
+
+    unbondRequestsParsed.sort((a, b) => {
+      if (a.finishTime < b.finishTime) {
+        return 1;
+      } else if (a.finishTime > b.finishTime) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
 
     set({
       priceLunaUsd: Number(lunaPriceResponse["exchange_rates"][0]!["exchange_rate"]),

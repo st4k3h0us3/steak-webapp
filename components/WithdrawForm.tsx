@@ -30,10 +30,10 @@ const WithdrawForm: FC = () => {
       <AssetInput
         assetSymbol="LUNA"
         assetLogo="/luna.png"
-        amount={withdrawableAmount}
         price={prices.luna}
         balance={balances ? balances.uluna / 1e6 : 0}
         isEditable={false}
+        fixedAmount={withdrawableAmount}
       />
       <Box textAlign="center">
         <Button

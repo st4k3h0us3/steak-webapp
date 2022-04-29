@@ -9,6 +9,7 @@ import {
   TxUnspecifiedError,
   UserDenied,
 } from "@terra-money/wallet-provider";
+import axios from "axios";
 import { FC, useState, useEffect } from "react";
 
 import ModalWrapper from "./ModalWrapper";
@@ -18,18 +19,99 @@ import { useConstants } from "../hooks";
 import { truncateString } from "../helpers";
 import { useStore } from "../store";
 
+/**
+ * If tx is confirmed, should return an response in the following format:
+ *
+ * ```typescript
+ * {
+ *   tx: object;
+ *   tx_response: object;
+ * }
+ * ```
+ *
+ * If not confirmed, the query either fail with error code 400, or return a response in the following format:
+ *
+ * ```typescript
+ * {
+ *   code: number;
+ *   message: string;
+ *   details: any[];
+ * }
+ * ```
+ */
+async function checkTxIsConfirmed(grpcGatewayUrl: string, txhash: string): Promise<boolean> {
+  try {
+    const { data } = await axios.get(`${grpcGatewayUrl}/cosmos/tx/v1beta1/txs/${txhash}`);
+    if ("tx" in data) {
+      return true;
+    }
+  } catch {
+    return false;
+  }
+  return false;
+}
+
 function SpinnerWrapper() {
   return (
     <Spinner thickness="6px" speed="1s" emptyColor="transparent" color="brand.red" size="xl" />
   );
 }
 
-function CloseButton(onClick: () => void) {
+function TxHashText(network: string, txhash: string) {
   return (
+    <Flex>
+      <Text variant="dimmed" ml="auto" mr="3">
+        Tx Hash
+      </Text>
+      <Link
+        ml="3"
+        mr="auto"
+        my="auto"
+        isExternal
+        href={`https://terrasco.pe/${network}/tx/${txhash}`}
+        _hover={{ textDecoration: "none" }}
+      >
+        {truncateString(txhash, 6, 6)}
+        <ExternalLinkIcon
+          ml="2"
+          style={{
+            transform: "translateY(-2.4px)",
+          }}
+        />
+      </Link>
+    </Flex>
+  );
+}
+
+function TxFailedText(error: any) {
+  return (
+    <Flex>
+      <Text variant="dimmed" ml="auto" mr="3">
+        Reason
+      </Text>
+      <Text ml="3" mr="auto">
+        {error instanceof CreateTxFailed
+          ? "Failed to create tx"
+          : error instanceof Timeout
+          ? "Timeout"
+          : error instanceof TxFailed
+          ? "Tx failed"
+          : error instanceof TxUnspecifiedError
+          ? "Unspecified"
+          : error instanceof UserDenied
+          ? "User denied"
+          : "Unknown"}
+      </Text>
+    </Flex>
+  );
+}
+
+function CloseButton(showCloseBtn: boolean, onClick: () => void) {
+  return showCloseBtn ? (
     <Button variant="primary" mt="12" onClick={onClick}>
       Close
     </Button>
-  );
+  ) : null;
 }
 
 type Props = {
@@ -41,15 +123,21 @@ type Props = {
 const TxModal: FC<Props> = ({ msgs, isOpen, onClose }) => {
   const wallet = useConnectedWallet();
   const store = useStore();
-  const { gasOptions } = useConstants(wallet?.network.name);
+  const { grpcGatewayUrl, gasOptions } = useConstants(wallet?.network.name);
+  const [intervalId, setIntervalId] = useState<NodeJS.Timer>();
+  const [showCloseBtn, setShowCloseBtn] = useState<boolean>(false);
+  const [txConfirmed, setTxConfirmed] = useState<boolean>(false);
   const [txStatusHeader, setTxStatusHeader] = useState<string>();
   const [txStatusIcon, setTxStatusIcon] = useState<JSX.Element>();
   const [txStatusDetail, setTxStatusDetail] = useState<JSX.Element>();
 
   useEffect(() => {
+    setTxConfirmed(false);
     setTxStatusHeader("Transaction Pending");
-    setTxStatusIcon(SpinnerWrapper);
-    setTxStatusDetail(<Text>Waiting for confirmation...</Text>);
+    setTxStatusIcon(SpinnerWrapper());
+    setTxStatusDetail(<Text>Please confirm tx in wallet popup</Text>);
+    setIntervalId(undefined);
+    setShowCloseBtn(false);
   }, [isOpen]);
 
   useEffect(() => {
@@ -57,65 +145,34 @@ const TxModal: FC<Props> = ({ msgs, isOpen, onClose }) => {
       wallet
         .post({ msgs, ...gasOptions })
         .then((result) => {
-          setTxStatusHeader("Transaction Successful");
-          setTxStatusIcon(<SuccessIcon h="80px" w="80px" />);
-          setTxStatusDetail(
-            <>
-              <Flex>
-                <Text variant="dimmed" ml="auto" mr="3">
-                  Tx Hash
-                </Text>
-                <Link
-                  ml="3"
-                  mr="auto"
-                  my="auto"
-                  isExternal
-                  href={`https://terrasco.pe/${wallet?.network.name}/tx/${result.result.txhash}`}
-                  _hover={{ textDecoration: "none" }}
-                >
-                  {truncateString(result.result.txhash, 6, 6)}
-                  <ExternalLinkIcon
-                    ml="2"
-                    style={{
-                      transform: "translateY(-2.4px)",
-                    }}
-                  />
-                </Link>
-              </Flex>
-              {CloseButton(onClose)}
-            </>
+          setTxStatusHeader("Transaction Broadcasted");
+          setTxStatusDetail(TxHashText(wallet!.network.name, result.result.txhash));
+          setIntervalId(
+            setInterval(() => {
+              checkTxIsConfirmed(grpcGatewayUrl!, result.result.txhash).then((txIsConfirmed) => {
+                setTxConfirmed(txIsConfirmed);
+              });
+            }, 1000)
           );
-          store.update(wallet); // refresh store once tx is completed
         })
         .catch((error) => {
           setTxStatusHeader("Transaction Failed");
           setTxStatusIcon(<FailedIcon h="80px" w="80px" />);
-          setTxStatusDetail(
-            <>
-              <Flex>
-                <Text variant="dimmed" ml="auto" mr="3">
-                  Reason
-                </Text>
-                <Text ml="3" mr="auto">
-                  {error instanceof CreateTxFailed
-                    ? "Failed to create tx"
-                    : error instanceof Timeout
-                    ? "Timeout"
-                    : error instanceof TxFailed
-                    ? "Tx failed"
-                    : error instanceof TxUnspecifiedError
-                    ? "Unspecified"
-                    : error instanceof UserDenied
-                    ? "User denied"
-                    : "Unknown"}
-                </Text>
-              </Flex>
-              {CloseButton(onClose)}
-            </>
-          );
+          setTxStatusDetail(TxFailedText(error));
+          setShowCloseBtn(true);
         });
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (txConfirmed) {
+      setTxStatusHeader("Transaction Confirmed");
+      setTxStatusIcon(<SuccessIcon h="80px" w="80px" />);
+      setShowCloseBtn(true);
+      clearInterval(intervalId!);
+      store.update(wallet);
+    }
+  }, [txConfirmed]);
 
   return (
     <ModalWrapper showHeader={false} isOpen={isOpen} onClose={onClose}>
@@ -128,6 +185,7 @@ const TxModal: FC<Props> = ({ msgs, isOpen, onClose }) => {
         </Flex>
         <Box mt="3" mb="10">
           {txStatusDetail}
+          {CloseButton(showCloseBtn, onClose)}
         </Box>
       </Box>
     </ModalWrapper>

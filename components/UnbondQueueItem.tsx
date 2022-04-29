@@ -49,7 +49,7 @@ const UnbondQueueItem: FC<UnbondRequestParsed> = ({ status, amount, startTime, f
         {capitalizeFirstLetter(status)}
       </Td>
       <Td borderBottom="none" py="6" minW="200px">
-        {formatNumber(amount, 3) + status === "pending" ? " STEAK" : "LUNA"}
+        {formatNumber(amount / 1e6, 6) + (status === "pending" ? " STEAK" : " LUNA")}
       </Td>
       <Td borderBottom="none" py="6" minW="230px">
         {startTime.toLocaleString()}

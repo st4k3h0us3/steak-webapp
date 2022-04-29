@@ -59,7 +59,6 @@ const UnbondForm: FC = () => {
         <AssetInput
           assetSymbol="STEAK"
           assetLogo="/steak.png"
-          amount={offerAmount}
           price={prices.steak}
           balance={balances ? balances.usteak / 1e6 : 0}
           isEditable={true}
@@ -85,11 +84,10 @@ const UnbondForm: FC = () => {
         <AssetInput
           assetSymbol="LUNA"
           assetLogo="/luna.png"
-          amount={returnAmount}
           price={prices.luna}
           balance={balances ? balances.uluna / 1e6 : 0}
           isEditable={false}
-          onAmountChange={() => {}}
+          fixedAmount={returnAmount}
         />
       </Box>
       <Box color="black" bg="white" p="6" mt="2" borderRadius="2xl" position="relative">
