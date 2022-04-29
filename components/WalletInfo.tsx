@@ -1,12 +1,13 @@
 import { Box, Button, Center, Link, Flex, HStack, VStack, Text } from "@chakra-ui/react";
-import { CopyIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import { useWallet, useConnectedWallet } from "@terra-money/wallet-provider";
 import copy from "copy-to-clipboard";
 import { FC } from "react";
 
 import PopoverWrapper from "./PopoverWrapper";
-import WalletIcon from "./WalletIcon";
 import WalletNetwork from "./WalletNetwork";
+import WalletIcon from "./WalletIcon";
+import CopyIcon from "./CopyIcon";
+import ExternalLinkIcon from "./ExternalLinkIcon";
 import { useBalances } from "../hooks";
 import { truncateString, formatNumber } from "../helpers";
 

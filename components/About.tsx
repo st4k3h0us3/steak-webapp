@@ -1,8 +1,8 @@
-import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { Box, Flex, Link, ListItem, Text, UnorderedList } from "@chakra-ui/react";
 import { FC } from "react";
 
 import Header from "./Header";
+import ExternalLinkIcon from "./ExternalLinkIcon";
 
 function ExternalLinkIconWrapper() {
   return <ExternalLinkIcon ml="1" mr="6" transform="translateY(-2px)" />;

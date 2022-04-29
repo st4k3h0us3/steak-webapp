@@ -1,5 +1,4 @@
 import { Box, Button, Flex, Link, Spinner, Text } from "@chakra-ui/react";
-import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { Msg } from "@terra-money/terra.js";
 import {
   useConnectedWallet,
@@ -15,6 +14,7 @@ import { FC, useState, useEffect } from "react";
 import ModalWrapper from "./ModalWrapper";
 import SuccessIcon from "./SuccessIcon";
 import FailedIcon from "./FailedIcon";
+import ExternalLinkIcon from "./ExternalLinkIcon";
 import { useConstants } from "../hooks";
 import { truncateString } from "../helpers";
 import { useStore } from "../store";

@@ -9,9 +9,7 @@
     "build": "next build"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "^1.8.8",
-    "@emotion/react": "^11.9.0",
     "@terra-money/terra.js": "^3.0.4",
     "@terra-money/wallet-provider": "^3.8.1",
     "next": "^12.1.5",

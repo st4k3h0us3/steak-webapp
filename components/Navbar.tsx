@@ -1,5 +1,4 @@
 import {
-  chakra,
   useDisclosure,
   Flex,
   Box,
@@ -12,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import { useConnectedWallet } from "@terra-money/wallet-provider";
 import React, { FC } from "react";
-import NextLink from "next/link";
 import { useRouter } from "next/router";
 
 import BurgerIcon from "./BurgerIcon";
@@ -61,11 +59,7 @@ const Navbar: FC = () => {
   return (
     <Box w="100%" py="6">
       <Flex w="100%" justify="space-between" align="center">
-        <NextLink href="/" passHref>
-          <chakra.a>
-            <SteakIcon w={["3rem", "4rem"]} h={["3rem", "4rem"]} />
-          </chakra.a>
-        </NextLink>
+        <SteakIcon w={["3rem", "4rem"]} h={["3rem", "4rem"]} />
         <NavbarLinks isBack={isBack} />
         <HStack justify="flex-end">
           {wallet ? <WalletInfo /> : <WalletConnect />}
