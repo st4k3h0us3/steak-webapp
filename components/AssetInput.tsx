@@ -79,7 +79,6 @@ const AssetInput: FC<Props> = ({
             max={isEditable ? balance : undefined} // if not editable, then do not set a max
             precision={6}
             onChange={(value: string) => {
-              console.log("value:", value);
               setAmount(Number(value));
               onAmountChange(Number(value));
             }}

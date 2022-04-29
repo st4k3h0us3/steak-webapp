@@ -40,7 +40,9 @@ const MySteak: FC = () => {
           isExternal={true}
           href={`https://app.astroport.fi/swap?from=uluna&to=${contracts?.steakToken}`}
         >
-          Trade STEAK
+          <Flex w="100%" h="100%" justify="center" align="center">
+            Trade STEAK
+          </Flex>
         </Link>
       </Header>
       <Box color="white" bg="brand.red" p="12" mb="6" borderRadius="2xl" textAlign="center">

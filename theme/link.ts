@@ -8,7 +8,6 @@ const link = {
       color: "white",
       bg: "brand.red",
       px: "10",
-      py: "2",
       _hover: {
         color: "brand.red",
         bg: "transparent",
