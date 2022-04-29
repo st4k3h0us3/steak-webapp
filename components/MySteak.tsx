@@ -48,7 +48,7 @@ const MySteak: FC = () => {
             justify="center"
             align="center"
           >
-            Trade STEAK at <AstroportIcon w="1.6rem" h="1.6rem" ml="2" mr="1" /> Astroport
+            Trade STEAK on <AstroportIcon w="1.6rem" h="1.6rem" ml="2" mr="1" /> Astroport
           </Flex>
           <Flex
             display={["flex", "none", null, null]}
