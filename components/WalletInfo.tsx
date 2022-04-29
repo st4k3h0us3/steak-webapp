@@ -73,17 +73,24 @@ const WalletInfo: FC = () => {
           <Button onClick={() => copy(wallet!.terraAddress)} variant="simple">
             <HStack>
               <CopyIcon width="1.5rem" height="1.5rem" />
-              <Text textStyle="small" variant="dimmed">
+              <Text
+                textStyle="small"
+                variant="dimmed"
+                _hover={{
+                  textDecoration: "underline",
+                  textUnderlineOffset: "0.3rem",
+                }}
+              >
                 Copy
               </Text>
             </HStack>
           </Button>
           <Link
-            ml="6"
-            my="auto"
             isExternal
             href={`https://terrasco.pe/${wallet?.network.name}/address/${wallet?.terraAddress}`}
-            _hover={{ textDecoration: "none" }}
+            ml="6"
+            my="auto"
+            textUnderlineOffset="0.3rem"
           >
             <HStack>
               <ExternalLinkIcon width="1.5rem" height="1.5rem" />
