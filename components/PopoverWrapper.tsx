@@ -22,8 +22,8 @@ const PopoverWrapper: FC<Props> = ({ title, triggerElement, children, ...props }
   return (
     <Popover {...props}>
       <PopoverTrigger>{triggerElement()}</PopoverTrigger>
-      <PopoverContent transform="translateX(-0.5rem) !important">
-        <Flex px="2" align="center" justify="space-between">
+      <PopoverContent px="10">
+        <Flex align="center" justify="space-between">
           <PopoverHeader>{title}</PopoverHeader>
           <PopoverCloseButton position="static" width="2rem" height="2rem" borderRadius="full">
             <CloseIcon w="2rem" h="2rem" />

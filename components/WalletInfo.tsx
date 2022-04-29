@@ -63,10 +63,10 @@ const WalletInfo: FC = () => {
         </Button>
       )}
     >
-      <Flex direction="column" justify="center" px="2">
+      <Flex direction="column" justify="center">
         <VStack mt={6} align="flex-start">
           <Text textStyle="minibutton">My Address</Text>
-          <Text textStyle="small" variant="dimmed">
+          <Text fontSize="xs" variant="dimmed">
             {wallet?.terraAddress}
           </Text>
         </VStack>
