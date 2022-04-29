@@ -1,9 +1,10 @@
 import { chakra, Link, Box, Flex, Text } from "@chakra-ui/react";
+import { useConnectedWallet } from "@terra-money/wallet-provider";
 import NextLink from "next/link";
 import { FC } from "react";
 
 import Header from "./Header";
-import { usePrices, useBalances } from "../hooks";
+import { usePrices, useBalances, useConstants } from "../hooks";
 import { formatNumber } from "../helpers";
 
 const bondOrUnbondStyle = {
@@ -23,8 +24,10 @@ const bondOrUnbondStyle = {
 };
 
 const MySteak: FC = () => {
+  const wallet = useConnectedWallet();
   const prices = usePrices();
   const balances = useBalances();
+  const { contracts } = useConstants(wallet?.network.name);
 
   const steakBalance = balances ? balances.usteak / 1e6 : undefined;
   const steakValue = steakBalance && prices.steak ? steakBalance * prices.steak : undefined;
@@ -32,7 +35,11 @@ const MySteak: FC = () => {
   return (
     <>
       <Header text="My Steak">
-        <Link variant="submit" href="https://app.astroport.fi">
+        <Link
+          variant="submit"
+          isExternal={true}
+          href={`https://app.astroport.fi/swap?from=uluna&to=${contracts?.steakToken}`}
+        >
           Trade STEAK
         </Link>
       </Header>
