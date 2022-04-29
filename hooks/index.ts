@@ -11,7 +11,7 @@ export const useConstants = (network?: string) => {
   }
 
   return {
-    grpcGatewayUrl: constants.GRPC_GATEWAY_URL[network],
+    grpcGatewayUrl: constants.NETWORKS[network]["lcd"],
     gasOptions: constants.GAS_OPTIONS,
     contracts: constants.CONTRACTS[network],
   };

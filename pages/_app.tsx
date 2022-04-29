@@ -1,21 +1,17 @@
 import { ChakraProvider } from "@chakra-ui/react";
-import {
-  WalletControllerChainOptions,
-  WalletProvider,
-  StaticWalletProvider,
-  getChainOptions,
-} from "@terra-money/wallet-provider";
-import App, { AppProps, AppContext } from "next/app";
+import { WalletProvider, StaticWalletProvider, NetworkInfo } from "@terra-money/wallet-provider";
+import { AppProps } from "next/app";
 
+import { NETWORKS } from "../constants";
 import Layout from "../components/Layout";
 import theme from "../theme";
 
-const SteakApp = ({
-  Component,
-  pageProps,
-  defaultNetwork,
-  walletConnectChainIds,
-}: AppProps & WalletControllerChainOptions) => {
+const walletNetoworkChainIds: Record<number, NetworkInfo> = {
+  0: NETWORKS["testnet"],
+  1: NETWORKS["mainnet"],
+};
+
+const SteakApp = ({ Component, pageProps }: AppProps) => {
   const main = (
     <ChakraProvider theme={theme}>
       <Layout>
@@ -25,20 +21,14 @@ const SteakApp = ({
   );
 
   return typeof window !== "undefined" ? (
-    <WalletProvider defaultNetwork={defaultNetwork} walletConnectChainIds={walletConnectChainIds}>
+    <WalletProvider defaultNetwork={NETWORKS["mainnet"]} walletConnectChainIds={walletNetoworkChainIds}>
       {main}
     </WalletProvider>
   ) : (
-    <StaticWalletProvider defaultNetwork={defaultNetwork}>
+    <StaticWalletProvider defaultNetwork={NETWORKS["mainnet"]}>
       {main}
     </StaticWalletProvider>
   );
-};
-
-SteakApp.getInitialProps = async (appContext: AppContext) => {
-  const appProps = await App.getInitialProps(appContext);
-  const chainOptions = await getChainOptions();
-  return { ...appProps, ...chainOptions };
 };
 
 export default SteakApp;

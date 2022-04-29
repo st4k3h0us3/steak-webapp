@@ -2,7 +2,7 @@ import { ConnectedWallet } from "@terra-money/wallet-provider";
 import axios from "axios";
 import create from "zustand";
 
-import { GRPC_GATEWAY_URL, CONTRACTS } from "../constants";
+import { NETWORKS, CONTRACTS } from "../constants";
 import { encodeBase64, decodeBase64 } from "../helpers";
 import {
   ContractStoreResponse,
@@ -55,7 +55,7 @@ export const useStore = create<State>((set) => ({
     // Display mainnet stats by default
     const network = wallet ? (wallet.network.name as "mainnet" | "testnet") : "mainnet";
 
-    const grpcGatewayUrl = GRPC_GATEWAY_URL[network];
+    const grpcGatewayUrl = NETWORKS[network]["lcd"];
     const { multiquery, steakHub, steakToken } = CONTRACTS[network];
 
     // These are user-independent queries; we query them regardless of whether a wallet is connected
