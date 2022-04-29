@@ -64,12 +64,12 @@ function TxHashText(network: string, txhash: string) {
         Tx Hash
       </Text>
       <Link
+        isExternal
+        href={`https://terrasco.pe/${network}/tx/${txhash}`}
         ml="3"
         mr="auto"
         my="auto"
-        isExternal
-        href={`https://terrasco.pe/${network}/tx/${txhash}`}
-        _hover={{ textDecoration: "none" }}
+        textUnderlineOffset="0.3rem"
       >
         {truncateString(txhash, 6, 6)}
         <ExternalLinkIcon

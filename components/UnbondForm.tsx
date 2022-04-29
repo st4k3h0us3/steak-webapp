@@ -43,7 +43,7 @@ const UnbondForm: FC = () => {
       newOfferAmount = Math.min(newOfferAmount, balances.usteak / 1e6);
     }
     setOfferAmount(newOfferAmount);
-    setReturnAmount(exchangeRate ? truncateDecimals(newOfferAmount / exchangeRate) : 0);
+    setReturnAmount(exchangeRate ? truncateDecimals(newOfferAmount * exchangeRate) : 0);
   };
 
   const nextBatchTimeStr = nextBatchTime
