@@ -69,7 +69,7 @@ const MySteak: FC = () => {
           {"($" + (steakValue ? formatNumber(steakValue, 2) : "0.00") + ")"}
         </Text>
         <Text color="brand.lightBrown" mt="5">
-          My staked STEAK
+          STEAK balance in wallet
         </Text>
         <Flex direction={["column", "row", null, null]} justify="center" mt="10">
           <NextLink href="/bond" passHref>

@@ -22,7 +22,7 @@ const About: FC = () => {
           rewards are claimed and reinvested. As yield accrues, the exchange ratio between STEAK and
           LUNA tokens changes, with each unit of STEAK becoming worth more LUNA over time.
         </Text>
-        <Text mb="3">
+        <Text mb="6">
           Compared to similar protocols such as Lido and Stader, Steak&rsquo;s unique feaures
           include:
           <UnorderedList>
@@ -41,10 +41,11 @@ const About: FC = () => {
             </ListItem>
           </UnorderedList>
         </Text>
-        <Text mb="3">
+        <hr />
+        <Text mt="6" mb="1">
           <b>Useful links</b>
         </Text>
-        <Flex direction={["column", null, "row", null]}>
+        <Flex direction={["column", null, "row", null]} mb="1">
           <Link
             variant="docs"
             isExternal={true}
@@ -52,7 +53,11 @@ const About: FC = () => {
           >
             Smart contract source code <ExternalLinkIconWrapper />
           </Link>
-          <Link variant="docs" isExternal={true} href="https://github.com/st4k3h0us3/steak-webapp">
+          <Link
+            variant="docs"
+            isExternal={true}
+            href="https://github.com/st4k3h0us3/steak-webapp"
+          >
             Webapp source code <ExternalLinkIconWrapper />
           </Link>
           <Link
@@ -61,6 +66,29 @@ const About: FC = () => {
             href="https://github.com/SCV-Security/PublicReports/blob/main/CW/St4k3h0us3/St4k3h0us3%20-%20Steak%20Contracts%20Audit%20Review%20-%20%20v1.0.pdf"
           >
             Audit report by SCV <ExternalLinkIconWrapper />
+          </Link>
+        </Flex>
+        <Flex direction={["column", null, "row", null]}>
+          <Link
+            variant="docs"
+            isExternal={true}
+            href="https://terrasco.pe/mainnet/address/terra15qr8ev2c0a0jswjtfrhfaj5ucgkhjd7la2shlg"
+          >
+            Steak Hub contract <ExternalLinkIconWrapper />
+          </Link>
+          <Link
+            variant="docs"
+            isExternal={true}
+            href="https://terrasco.pe/mainnet/address/terra1rl4zyexjphwgx6v3ytyljkkc4mrje2pyznaclv"
+          >
+            Steak Token contract <ExternalLinkIconWrapper />
+          </Link>
+          <Link
+            variant="docs"
+            isExternal={true}
+            href="https://terrasco.pe/mainnet/address/terra14q0cgunptuym048a4y2awt8a7fl9acudmfzk5e"
+          >
+            Astroport STEAK-LUNA Pair <ExternalLinkIconWrapper />
           </Link>
         </Flex>
       </Box>

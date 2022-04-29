@@ -49,7 +49,7 @@ const WalletInfo: FC = () => {
               borderTopRightRadius="full"
               borderBottomRightRadius="full"
             >
-              <HStack spacing="3">
+              <HStack spacing="2">
                 <Text fontSize="md" color="white">
                   UST
                 </Text>
