@@ -27,17 +27,17 @@ const About: FC = () => {
           include:
           <UnorderedList>
             <ListItem>
-              Zero fee or commission; no useless governance token to siphon value from users
+              <b>Zero fee or commission;</b> no useless governance token to siphon value from users
             </ListItem>
             <ListItem>
-              Zero money raised from VCs; developers worked completely voluntarily, paying for
-              expenses out of their own pockets
+              <b>Zero money raised from VCs;</b> developers worked completely voluntarily, paying
+              for expenses out of their own pockets
             </ListItem>
             <ListItem>
-              Committed to support non-institution, community-based validators, especially those who
-              contribute to open source projects, run bare metal servers (instead of cloud-based
-              ones), and provide crucial infrastructure services for the Cosmos ecosystem (e.g. IBC
-              message relaying)
+              <b>Committed to support non-institution, community-based validators,</b> especially
+              those who contribute to open source projects, run bare metal servers (instead of
+              cloud-based ones), and provide crucial infrastructure services for the Cosmos
+              ecosystem (e.g. IBC message relaying)
             </ListItem>
           </UnorderedList>
         </Text>
