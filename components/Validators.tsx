@@ -1,39 +1,36 @@
 import { Box, Table, Thead, Tbody, Tr, Th } from "@chakra-ui/react";
-import { useUnbondRequests } from "hooks";
+import { useValidators } from "hooks";
 import { FC } from "react";
 
 import Header from "./Header";
-import { UnbondQueueItem, UnbondQueueEmpty } from "./UnbondQueueItem";
+import ValidatorsItem from "./ValidatorsItem";
 
 const UnbondQueue: FC = () => {
-  const unbondRequests = useUnbondRequests();
+  const validators = useValidators();
 
-  const items = unbondRequests.length > 1
-    ? (
-      unbondRequests.map((unbondRequest, index) => <UnbondQueueItem key={index} {...unbondRequest} />)
-    )
-    : (
-      <UnbondQueueEmpty />
-    );
+  const items = validators.map((validator, index) => <ValidatorsItem key={index} {...validator} />);
 
   return (
     <>
-      <Header text="My Unbonding Requests" pb="1" />
+      <Header text="Whitelisted Validators" pb="1" />
       <Box overflowX="auto">
         <Table style={{ borderCollapse: "separate", borderSpacing: "0 0.6rem" }}>
           <Thead>
             <Tr>
               <Th borderBottom="none" bg="brand.darkBrown" color="white" borderLeftRadius="2xl">
+                Validator
+              </Th>
+              <Th borderBottom="none" bg="brand.darkBrown" color="white">
                 Status
               </Th>
               <Th borderBottom="none" bg="brand.darkBrown" color="white">
-                Amount
+                Voting Power
               </Th>
               <Th borderBottom="none" bg="brand.darkBrown" color="white">
-                Start Time
+                Commission
               </Th>
               <Th borderBottom="none" bg="brand.darkBrown" color="white" borderRightRadius="2xl">
-                Finish Time
+                APR
               </Th>
             </Tr>
           </Thead>

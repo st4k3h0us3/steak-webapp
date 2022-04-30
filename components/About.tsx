@@ -12,7 +12,7 @@ const About: FC = () => {
   return (
     <>
       <Header text="About" />
-      <Box bg="white" p="6" borderRadius="2xl">
+      <Box bg="white" p="6" mb="4" borderRadius="2xl">
         <Text mb="3">
           <b>Steak</b> is a liquid staking protocol for 🌎 Terra.
         </Text>
@@ -22,29 +22,29 @@ const About: FC = () => {
           rewards are claimed and reinvested. As yield accrues, the exchange ratio between STEAK and
           LUNA tokens changes, with each unit of STEAK becoming worth more LUNA over time.
         </Text>
-        <Text mb="6">
+        <Text>
           Compared to similar protocols such as Lido and Stader, Steak&rsquo;s unique feaures
           include:
-          <UnorderedList>
-            <ListItem>
-              <b>Zero fee or commission;</b> no useless governance token to siphon value from users
-            </ListItem>
-            <ListItem>
-              <b>Zero money raised from VCs;</b> developers worked completely voluntarily, paying
-              for expenses out of their own pockets
-            </ListItem>
-            <ListItem>
-              <b>Committed to support non-institution, community-based validators,</b> especially
-              those who contribute to open source projects, run bare metal servers (instead of
-              cloud-based ones), and provide crucial infrastructure services for the Cosmos
-              ecosystem (e.g. IBC message relaying)
-            </ListItem>
-          </UnorderedList>
         </Text>
+        <UnorderedList mb="6">
+          <ListItem>
+            <b>Zero fee or commission;</b> no useless governance token to siphon value from users
+          </ListItem>
+          <ListItem>
+            <b>Zero money raised from VCs;</b> developers worked completely voluntarily, paying for
+            expenses out of their own pockets
+          </ListItem>
+          <ListItem>
+            <b>Committed to support non-institution, community-based validators,</b> especially
+            those who contribute to open source projects, run bare metal servers (instead of
+            cloud-based ones), and provide crucial infrastructure services for the Cosmos ecosystem
+            (e.g. IBC message relaying)
+          </ListItem>
+        </UnorderedList>
         <hr />
-        <Text mt="6" mb="1">
+        <Box mt="6" mb="1">
           <b>Useful links</b>
-        </Text>
+        </Box>
         <Flex direction={["column", null, "row", null]} mb="1">
           <Link
             variant="docs"
@@ -53,11 +53,7 @@ const About: FC = () => {
           >
             Smart contract source code <ExternalLinkIconWrapper />
           </Link>
-          <Link
-            variant="docs"
-            isExternal={true}
-            href="https://github.com/st4k3h0us3/steak-webapp"
-          >
+          <Link variant="docs" isExternal={true} href="https://github.com/st4k3h0us3/steak-webapp">
             Webapp source code <ExternalLinkIconWrapper />
           </Link>
           <Link

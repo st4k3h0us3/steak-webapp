@@ -9,6 +9,7 @@ import {
   Cw20BalanceResponse,
   ExchangeRateResponse,
   MultiqueryResponse,
+  ValidatorsResponse,
   NativeBalanceResponse,
   Batch,
   PendingBatch,
@@ -16,6 +17,15 @@ import {
   ConfigResponse,
   UnbondRequestsByUserResponse,
 } from "../types";
+
+export type ValidatorParsed = {
+  operatorAddress: string;
+  isActive: boolean;
+  moniker: string;
+  identity: string;
+  tokens: number;
+  commissionRate: number;
+};
 
 export type UnbondRequestParsed = {
   status: "pending" | "unbonding" | "completed";
@@ -39,6 +49,7 @@ export type State = {
     id: number;
     startTime: Date;
   };
+  validators?: ValidatorParsed[];
   unbondRequests?: UnbondRequestParsed[];
 
   update: (wallet?: ConnectedWallet) => Promise<void>;
@@ -150,7 +161,7 @@ export const useStore = create<State>((set) => ({
       ]);
     }
 
-    let { data } = await axios.get<ContractStoreResponse<MultiqueryResponse>>(
+    const axiosResponse1 = await axios.get<ContractStoreResponse<MultiqueryResponse>>(
       `${grpcGatewayUrl}/terra/wasm/v1beta1/contracts/${multiquery}/store?query_msg=${encodeBase64(
         queries
       )}`
@@ -163,7 +174,7 @@ export const useStore = create<State>((set) => ({
       hubStateResult,
       hubConfigResult,
       pendingBatchResult,
-    ] = data["query_result"].slice(0, 4);
+    ] = axiosResponse1["data"]["query_result"].slice(0, 4);
 
     if (!lunaPriceResult || !lunaPriceResult.success) {
       throw new Error("Failed to query luna price");
@@ -195,16 +206,45 @@ export const useStore = create<State>((set) => ({
       },
     });
 
-    if (!wallet) { return; }
+    //----------------------------------- Query validator status -----------------------------------
+
+    const axiosResponse3 = await axios.get<ValidatorsResponse>(
+      `${grpcGatewayUrl}/cosmos/staking/v1beta1/validators?status=BOND_STATUS_BONDED&pagination.limit=150`
+    );
+
+    const validators = axiosResponse3["data"]["validators"]
+      .filter((v) => config.validators.includes(v["operator_address"]))
+      .map((v) => ({
+        operatorAddress: v["operator_address"],
+        isActive: v["jailed"] === false && v["status"] === "BOND_STATUS_BONDED",
+        moniker: v["description"]["moniker"],
+        identity: v["description"]["identity"],
+        tokens: Number(v["tokens"]),
+        commissionRate: Number(v["commission"]["commission_rates"]["rate"]),
+      }));
+
+    validators.sort((a, b) => {
+      if (a.tokens < b.tokens) {
+        return 1;
+      } else if (a.tokens > b.tokens) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
+
+    set({ validators });
 
     // ---------------------------- Process user-dependent query result ----------------------------
+
+    if (!wallet) { return; }
 
     const [
       uusdBalanceResult,
       ulunaBalanceResult,
       usteakBalanceResult,
       unbondRequestsByUserResult,
-    ] = data["query_result"].slice(4, 8);
+    ] = axiosResponse1["data"]["query_result"].slice(4, 8);
 
     if (!uusdBalanceResult || !uusdBalanceResult.success) {
       throw new Error("Failed to query uusd balance");
@@ -246,11 +286,11 @@ export const useStore = create<State>((set) => ({
         }))
       );
 
-      const axiosResult2 = await axios.get<ContractStoreResponse<MultiqueryResponse>>(
+      const axiosResponse2 = await axios.get<ContractStoreResponse<MultiqueryResponse>>(
         `${grpcGatewayUrl}/terra/wasm/v1beta1/contracts/${multiquery}/store?query_msg=${queries2}`
       );
 
-      for (const result of axiosResult2["data"]["query_result"]) {
+      for (const result of axiosResponse2["data"]["query_result"]) {
         if (result.success) {
           const batch: Batch = decodeBase64(result.data);
           batchesById[batch.id] = batch;

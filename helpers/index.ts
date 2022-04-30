@@ -39,6 +39,13 @@ export function formatNumber(x: number, decPlaces = 2) {
 }
 
 /**
+ * Format a percentage number
+ */
+export function formatPercentage(perc: number) {
+  return Math.floor(perc * 100).toString() + "%";
+}
+
+/**
  * Make the first letter of a string uppercase
  */
 export function capitalizeFirstLetter(str: string) {

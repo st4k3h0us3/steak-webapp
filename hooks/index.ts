@@ -34,6 +34,8 @@ export const useWithdrawableAmount = () => {
 
 export const useBalances = () => useStore((state) => state.balances);
 
+export const useValidators = () => useStore(state => state.validators ?? []);
+
 export const useExchangeRate = () => useStore((state) => state.hubState?.exchangeRate);
 
 export const useNextBatchTime = () => useStore((state) => state.pendingBatch?.startTime);

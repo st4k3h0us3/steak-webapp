@@ -16,7 +16,7 @@ const Overview: FC = () => {
   return (
     <>
       <Header text="Overview" />
-      <SimpleGrid minChildWidth="250px" spacing="10px" mb="6">
+      <SimpleGrid minChildWidth="250px" spacing="10px" mb="4">
         <OverviewItem
           primaryText={"$" + formatNumber(totalValueLocked, 0)}
           secondaryText={`(${formatNumber(totalLunaLocked, 0)} LUNA)`}

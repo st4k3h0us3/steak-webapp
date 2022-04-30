@@ -44,7 +44,7 @@ const UnbondQueueItem: FC<UnbondRequestParsed> = ({ status, amount, startTime, f
     );
 
   return (
-    <Tr bg="white" mb="2">
+    <Tr transition="0.25s all" bg="white" mb="2" _hover={{ bg: "gray.100" }}>
       <Td borderBottom="none" py="6" borderLeftRadius="2xl">
         {capitalizeFirstLetter(status)}
       </Td>
