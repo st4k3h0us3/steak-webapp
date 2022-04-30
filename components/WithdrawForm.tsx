@@ -12,7 +12,7 @@ const WithdrawForm: FC = () => {
   const wallet = useConnectedWallet();
   const prices = usePrices();
   const balances = useBalances();
-  const withdrawableAmount = useWithdrawableAmount();
+  const withdrawableAmount = useWithdrawableAmount(); // NOTE: the withdrawable amount is in `uluna`, not Luna
   const { contracts } = useConstants(wallet?.network.name);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -33,7 +33,7 @@ const WithdrawForm: FC = () => {
         price={prices.luna}
         balance={balances ? balances.uluna / 1e6 : 0}
         isEditable={false}
-        fixedAmount={withdrawableAmount}
+        fixedAmount={withdrawableAmount / 1e6}
       />
       <Box textAlign="center">
         <Button
