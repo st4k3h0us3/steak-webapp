@@ -8,7 +8,7 @@ import { UnbondQueueItem, UnbondQueueEmpty } from "./UnbondQueueItem";
 const UnbondQueue: FC = () => {
   const unbondRequests = useUnbondRequests();
 
-  const items = unbondRequests.length > 1
+  const items = unbondRequests.length > 0
     ? (
       unbondRequests.map((unbondRequest, index) => <UnbondQueueItem key={index} {...unbondRequest} />)
     )
@@ -33,7 +33,7 @@ const UnbondQueue: FC = () => {
                 Start Time
               </Th>
               <Th borderBottom="none" bg="brand.darkBrown" color="white" borderRightRadius="2xl">
-                Finish Time
+                Est. Finish Time
               </Th>
             </Tr>
           </Thead>

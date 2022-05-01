@@ -16,10 +16,8 @@ const UnbondQueueEmpty: FC = () => {
 };
 
 const UnbondQueueItem: FC<UnbondRequestParsed> = ({ status, amount, startTime, finishTime }) => {
-  const currentTime = new Date();
-
   const finishTimeItem =
-    currentTime >= finishTime ? (
+    status === "completed" ? (
       <NextLink href="/withdraw" passHref>
         <chakra.a
           transition="0.2s all"
