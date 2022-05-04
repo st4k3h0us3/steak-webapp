@@ -18,7 +18,7 @@ const Footer: FC = () => {
             </Link>
           </p>
           <p style={{ marginBottom: "1rem" }}>
-            <Link variant="footer" isExternal={true} href="https://twitter.com/st4k3h0us3">
+            <Link variant="footer" isExternal={true} href="https://t.me/+PadO-WwMDxNjMGEx">
               Telegram
             </Link>
           </p>
