@@ -5,24 +5,45 @@ import { FC } from "react";
 import Header from "./Header";
 import AssetInput from "./AssetInput";
 import TxModal from "./TxModal";
-import { useBalances, useConstants, usePrices, useWithdrawableAmount } from "../hooks";
-import { MsgExecuteContract } from "@terra-money/terra.js";
+import { useBalances, useConstants, usePrices, useUnbondRequests } from "../hooks";
+import { Msg, MsgExecuteContract } from "@terra-money/terra.js";
 
 const WithdrawForm: FC = () => {
   const wallet = useConnectedWallet();
   const prices = usePrices();
   const balances = useBalances();
-  const withdrawableAmount = useWithdrawableAmount(); // NOTE: the withdrawable amount is in `uluna`, not Luna
+  const unbondRequests = useUnbondRequests();
   const { contracts } = useConstants(wallet?.network.name);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const msgs = wallet && contracts
-    ? [
+  // Withdrawable amount is the sum of amounts in all *completed* bond requests
+  const withdrawableAmount = unbondRequests.reduce(
+    (a, b) => a + (b.status === "completed" ? b.amount : 0),
+    0
+  );
+
+  // Need to reconcile if *any* of the *completed* batch is NOT reconciled
+  const needToReconcile = unbondRequests
+    .map((ubr) => ubr.status === "completed" && ubr.batchIsReconciled === false)
+    .includes(true);
+
+  let msgs: Msg[] = [];
+  if (wallet && contracts) {
+    if (needToReconcile) {
+      msgs.push(
+        new MsgExecuteContract(wallet.terraAddress, contracts.steakHub, {
+          reconcile: {},
+        })
+      );
+    }
+    if (withdrawableAmount > 0) {
+      msgs.push(
         new MsgExecuteContract(wallet.terraAddress, contracts.steakHub, {
           withdraw_unbonded: {},
-        }),
-      ]
-    : [];
+        })
+      );
+    }
+  }
 
   return (
     <Box maxW="container.sm" mx="auto">

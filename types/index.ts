@@ -133,6 +133,7 @@ export type PendingBatch = {
  */
 export type Batch = {
   id: number;
+  reconciled: boolean;
   total_shares: string;
   uluna_unclaimed: string;
   est_unbond_end_time: number;

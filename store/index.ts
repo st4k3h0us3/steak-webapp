@@ -32,6 +32,7 @@ export type UnbondRequestParsed = {
   amount: number; // means `usteak` amount if the batch has not been submitted, or `uluna` if already submitted
   startTime: Date;
   finishTime: Date;
+  batchIsReconciled: boolean;
 };
 
 export type State = {
@@ -162,9 +163,7 @@ export const useStore = create<State>((set) => ({
     }
 
     const axiosResponse1 = await axios.get<ContractStoreResponse<MultiqueryResponse>>(
-      `${grpcGatewayUrl}/terra/wasm/v1beta1/contracts/${multiquery}/store?query_msg=${encodeBase64(
-        queries
-      )}`
+      `${grpcGatewayUrl}/terra/wasm/v1beta1/contracts/${multiquery}/store?query_msg=${encodeBase64(queries)}`
     );
 
     // --------------------------- Process user-independent query result ---------------------------
@@ -311,6 +310,7 @@ export const useStore = create<State>((set) => ({
           finishTime: new Date(
             (pendingBatch["est_unbond_start_time"] + config["unbond_period"]) * 1000
           ),
+          batchIsReconciled: false,
         });
       } else {
         const batch = batchesById[unbondRequest.id]!;
@@ -322,6 +322,7 @@ export const useStore = create<State>((set) => ({
             Number(batch["total_shares"]),
           startTime: new Date((batch["est_unbond_end_time"] - config["unbond_period"]) * 1000),
           finishTime,
+          batchIsReconciled: batch["reconciled"],
         });
       }
     }
