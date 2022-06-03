@@ -5,27 +5,29 @@ export const CONTRACTS = {
     steakToken: "terra1rl4zyexjphwgx6v3ytyljkkc4mrje2pyznaclv",
   },
   testnet: {
-    multiquery: "terra1t5twwglq9vlmf0pz8yadmd6gr6es2gfc4fkjww",
-    steakHub: "terra1xshrfs3lp7nwkdfh3067vfsf3kmweygfsc3hzy",
-    steakToken: "terra1awhvtkm553rszxtvnuda4fe2r6rjjj7hjwzv0w",
+    multiquery: "terra1mgrye4409qt9yen33rrwnj06eau56kh96ajjr2fcxvcc4etawp9qhsgf8f",
+    steakHub: "terra1lm7d4zr97rzp3a22szdv6ucpeyckyl2l2wh6jc9qrga78eyrvamsjgs5q6",
+    steakToken: "terra1q02glqy2gcl9kavshhh9tzr3l7cjwjwk7mhatd9h9nc243gq73esdat6wj",
   },
 };
 
 export const NETWORKS = {
   mainnet: {
     name: "mainnet",
-    chainID: "columbus-5",
-    lcd: "https://lcd.terra.dev",
+    chainID: "phoenix-1",
+    lcd: "https://pisco-lcd.terra.dev",
+    isClassic:false
   },
   testnet: {
     name: "testnet",
-    chainID: "bombay-12",
-    lcd: "https://bombay-lcd.terra.dev",
+    chainID: "pisco-1",
+    lcd: "https://pisco-lcd.terra.dev",
+    isClassic:false
   },
 };
 
 export const GAS_OPTIONS = {
   gas: undefined, // leave undefined so it is estimated when signing
-  gasPrices: "0.15uusd",
+  gasPrices: "0.15uluna",
   gasAdjustment: 1.2,
 };

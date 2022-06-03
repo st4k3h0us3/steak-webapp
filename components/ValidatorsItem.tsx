@@ -33,7 +33,7 @@ const ValidatorItem: FC<ValidatorParsed> = ({
             }}
           />
           <Link
-            href={`https://terrasco.pe/${network}/validators/${operatorAddress}`}
+            href={`https://finder.terra.money/${network}/validators/${operatorAddress}`}
             isExternal={true}
             mr="1"
             whiteSpace="nowrap"
