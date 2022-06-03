@@ -36,33 +36,7 @@ const MySteak: FC = () => {
   return (
     <>
       <Header text="My Steak">
-        {/*
-        <Link
-          variant="submit"
-          isExternal={true}
-          href={`https://app.astroport.fi/swap?from=uluna&to=${contracts?.steakToken}`}
-
-        >
-          <Flex
-            display={["none", "flex", null, null]}
-            w="100%"
-            h="100%"
-            justify="center"
-            align="center"
-          >
-            Trade STEAK on <AstroportIcon w="1.6rem" h="1.6rem" ml="2" mr="1" /> Astroport (soon)
-          </Flex>
-          <Flex
-            display={["flex", "none", null, null]}
-            w="100%"
-            h="100%"
-            justify="center"
-            align="center"
-          >
-            Trade STEAK
-          </Flex>
-        </Link>
-        */}
+       TBD link to DEX
       </Header>
       <Box color="white" bg="brand.red" p="12" mb="4" borderRadius="2xl" textAlign="center">
         <Text fontSize="6xl" fontWeight="800">
