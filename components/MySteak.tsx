@@ -32,14 +32,16 @@ const MySteak: FC = () => {
 
   const steakBalance = balances ? balances.usteak / 1e6 : undefined;
   const steakValue = steakBalance && prices.steak ? steakBalance * prices.steak : undefined;
-
+// astroport link for later https://app.astroport.fi/swap?from=uluna&to=${contracts?.steakToken}
   return (
     <>
       <Header text="My Steak">
+        {/*
         <Link
           variant="submit"
           isExternal={true}
           href={`https://app.astroport.fi/swap?from=uluna&to=${contracts?.steakToken}`}
+
         >
           <Flex
             display={["none", "flex", null, null]}
@@ -48,7 +50,7 @@ const MySteak: FC = () => {
             justify="center"
             align="center"
           >
-            Trade STEAK on <AstroportIcon w="1.6rem" h="1.6rem" ml="2" mr="1" /> Astroport
+            Trade STEAK on <AstroportIcon w="1.6rem" h="1.6rem" ml="2" mr="1" /> Astroport (soon)
           </Flex>
           <Flex
             display={["flex", "none", null, null]}
@@ -60,6 +62,7 @@ const MySteak: FC = () => {
             Trade STEAK
           </Flex>
         </Link>
+        */}
       </Header>
       <Box color="white" bg="brand.red" p="12" mb="4" borderRadius="2xl" textAlign="center">
         <Text fontSize="6xl" fontWeight="800">

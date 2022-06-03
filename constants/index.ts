@@ -15,7 +15,7 @@ export const NETWORKS = {
   mainnet: {
     name: "mainnet",
     chainID: "phoenix-1",
-    lcd: "https://pisco-lcd.terra.dev",
+    lcd: "https://lcd.terra.dev",
     isClassic:false,
     walletconnectID:1
   },
