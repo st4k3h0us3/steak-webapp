@@ -169,6 +169,7 @@ export const useStore = create<State>((set) => ({
     );
 
     // --------------------------- Process user-independent query result ---------------------------
+    // @ts-ignore
     const {data}  = axiosResponse1["data"];
     const [
       lunaPriceResult,

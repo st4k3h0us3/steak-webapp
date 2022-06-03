@@ -16,13 +16,15 @@ export const NETWORKS = {
     name: "mainnet",
     chainID: "phoenix-1",
     lcd: "https://pisco-lcd.terra.dev",
-    isClassic:false
+    isClassic:false,
+    walletconnectID:1
   },
   testnet: {
     name: "testnet",
     chainID: "pisco-1",
     lcd: "https://pisco-lcd.terra.dev",
-    isClassic:false
+    isClassic:false,
+    walletconnectID:0
   },
 };
 
