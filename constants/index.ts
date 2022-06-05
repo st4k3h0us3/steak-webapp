@@ -1,8 +1,8 @@
 export const CONTRACTS = {
   mainnet: {
-    multiquery: "terra1swrywzkphty20e2uzpy582xu836luw0e5yp25m",
-    steakHub: "terra15qr8ev2c0a0jswjtfrhfaj5ucgkhjd7la2shlg",
-    steakToken: "terra1rl4zyexjphwgx6v3ytyljkkc4mrje2pyznaclv",
+    multiquery: "terra1m277jus3ahphsy6wml8kdwrz2ecf7wy4ggncz6d9xmhd2a29qyss3zakjl",
+    steakHub: "terra12e4v50xl33fnwkzltz9vu565snlmx65vdrk8e2644km09myewr8q538psc",
+    steakToken: "terra1xumzh893lfa7ak5qvpwmnle5m5xp47t3suwwa9s0ydqa8d8s5faqn6x7al",
   },
   testnet: {
     multiquery: "terra1mgrye4409qt9yen33rrwnj06eau56kh96ajjr2fcxvcc4etawp9qhsgf8f",
@@ -15,7 +15,7 @@ export const NETWORKS = {
   mainnet: {
     name: "mainnet",
     chainID: "phoenix-1",
-    lcd: "https://lcd.terra.dev",
+    lcd: "https://phoenix-lcd.terra.dev",
     isClassic:false,
     walletconnectID:1
   },
