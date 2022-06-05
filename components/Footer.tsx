@@ -22,6 +22,7 @@ const Footer: FC = () => {
               Telegram
             </Link>
           </p>
+          <p>This site is being maintained by PFC. </p>
         </Box>
       </Container>
     </Box>

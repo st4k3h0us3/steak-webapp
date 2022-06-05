@@ -53,7 +53,7 @@ const About: FC = () => {
           >
             Smart contract source code <ExternalLinkIconWrapper />
           </Link>
-          <Link variant="docs" isExternal={true} href="https://github.com/st4k3h0us3/steak-webapp">
+          <Link variant="docs" isExternal={true} href="https://github.com/PFC-developer/steak-webapp/tree/chore_upgrade_terra2.0">
             Webapp source code <ExternalLinkIconWrapper />
           </Link>
           <Link
@@ -68,14 +68,14 @@ const About: FC = () => {
           <Link
             variant="docs"
             isExternal={true}
-            href="https://finder.terra.money/mainnet/address/terra15qr8ev2c0a0jswjtfrhfaj5ucgkhjd7la2shlg"
+            href="https://finder.terra.money/mainnet/address/terra12e4v50xl33fnwkzltz9vu565snlmx65vdrk8e2644km09myewr8q538psc"
           >
             Steak Hub contract <ExternalLinkIconWrapper />
           </Link>
           <Link
             variant="docs"
             isExternal={true}
-            href="https://finder.terra.money/mainnet/address/terra1rl4zyexjphwgx6v3ytyljkkc4mrje2pyznaclv"
+            href="https://finder.terra.money/mainnet/address/terra1xumzh893lfa7ak5qvpwmnle5m5xp47t3suwwa9s0ydqa8d8s5faqn6x7al"
           >
             Steak Token contract <ExternalLinkIconWrapper />
           </Link>
