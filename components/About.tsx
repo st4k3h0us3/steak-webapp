@@ -81,8 +81,8 @@ const About: FC = () => {
           </Link>
         </Flex>
         <Flex direction={["column", null, "row", null]}>
-          STEAK-LUNA Pairs (
-          <Link
+          STEAK-LUNA Pairs
+          (<Link
               variant="docs"
               isExternal={true}
               href="https://finder.terra.money/mainnet/address/terra1jynmf6gteg4rd03ztldan5j2dp78su4tc3hfvkve8dl068c2yppsk5uszc"
@@ -95,8 +95,7 @@ const About: FC = () => {
               href="https://finder.terra.money/mainnet/address/terra1zdpq84j8ex29wz9tmygqtftplrw87x8wmuyfh0rsy60uq7nadtsq5pjr7y"
           >
             TerraSwap <ExternalLinkIconWrapper />
-          </Link>
-          )
+          </Link>)
         </Flex>
       </Box>
     </>
