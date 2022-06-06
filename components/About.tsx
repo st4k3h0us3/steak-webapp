@@ -82,9 +82,16 @@ const About: FC = () => {
           <Link
             variant="docs"
             isExternal={true}
-            href="https://finder.terra.money/mainnet/address/terra14q0cgunptuym048a4y2awt8a7fl9acudmfzk5e"
+            href="https://finder.terra.money/mainnet/address/terra1jynmf6gteg4rd03ztldan5j2dp78su4tc3hfvkve8dl068c2yppsk5uszc"
           >
             Astroport STEAK-LUNA Pair <ExternalLinkIconWrapper />
+          </Link>
+          <Link
+            variant="docs"
+            isExternal={true}
+            href="https://finder.terra.money/mainnet/address/terra1zdpq84j8ex29wz9tmygqtftplrw87x8wmuyfh0rsy60uq7nadtsq5pjr7y"
+          >
+            TerraSwap STEAK-LUNA Pair <ExternalLinkIconWrapper />
           </Link>
         </Flex>
       </Box>
