@@ -1,12 +1,15 @@
-import { chakra,  Box, Flex, Text } from "@chakra-ui/react";
+import {chakra, Box, Flex, Text, Link} from "@chakra-ui/react";
 // import { useConnectedWallet } from "@terra-money/wallet-provider";
 import NextLink from "next/link";
 import { FC } from "react";
 
 import Header from "./Header";
-import { usePrices, useBalances } from "../hooks";
+import {usePrices, useBalances, useConstants} from "../hooks";
 // import { usePrices, useBalances, useConstants } from "../hooks";
 import { formatNumber } from "../helpers";
+import AstroportIcon from "./AstroportIcon";
+import {useConnectedWallet} from "@terra-money/wallet-provider";
+import TerraswapIcon from "./TerraswapIcon";
 
 const bondOrUnbondStyle = {
   transition: "0.2s all",
@@ -25,18 +28,47 @@ const bondOrUnbondStyle = {
 };
 
 const MySteak: FC = () => {
-//  const wallet = useConnectedWallet();
+  const wallet = useConnectedWallet();
   const prices = usePrices();
   const balances = useBalances();
- // const { contracts } = useConstants(wallet?.network.name);
+  const { contracts } = useConstants(wallet?.network.name);
 
   const steakBalance = balances ? balances.usteak / 1e6 : undefined;
   const steakValue = steakBalance && prices.steak ? steakBalance * prices.steak : undefined;
-// astroport link for later https://app.astroport.fi/swap?from=uluna&to=${contracts?.steakToken}
   return (
     <>
       <Header text="My Steak">
-       TBD link to DEX
+        <Link
+            variant="submit"
+            isExternal={true}
+            href={`https://app.astroport.fi/swap?from=uluna&to=${contracts?.steakToken}`}
+        >
+          <Flex
+              display={["none", "flex", null, null]}
+              w="100%"
+              h="100%"
+              justify="center"
+              align="center"
+          >
+             <AstroportIcon w="1.6rem" h="1.6rem" ml="2" mr="1" /> Astroport
+          </Flex>
+        </Link>
+        &nbsp;
+        <Link
+            variant="submit"
+            isExternal={true}
+            href={`https://app.terraswap.io/swap?type=swap&from=uluna&to=${contracts?.steakToken}`}
+        >
+          <Flex
+              display={["none", "flex", null, null]}
+              w="100%"
+              h="100%"
+              justify="center"
+              align="center"
+          >
+             <TerraswapIcon w="1.6rem" h="1.6rem" ml="2" mr="1" /> TerraSwap
+          </Flex>
+        </Link>
       </Header>
       <Box color="white" bg="brand.red" p="12" mb="4" borderRadius="2xl" textAlign="center">
         <Text fontSize="6xl" fontWeight="800">
