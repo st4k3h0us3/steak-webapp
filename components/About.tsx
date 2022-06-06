@@ -79,20 +79,24 @@ const About: FC = () => {
           >
             Steak Token contract <ExternalLinkIconWrapper />
           </Link>
+        </Flex>
+        <Flex direction={["column", null, "row", null]}>
+          STEAK-LUNA Pairs (
           <Link
-            variant="docs"
-            isExternal={true}
-            href="https://finder.terra.money/mainnet/address/terra1jynmf6gteg4rd03ztldan5j2dp78su4tc3hfvkve8dl068c2yppsk5uszc"
+              variant="docs"
+              isExternal={true}
+              href="https://finder.terra.money/mainnet/address/terra1jynmf6gteg4rd03ztldan5j2dp78su4tc3hfvkve8dl068c2yppsk5uszc"
           >
-            Astroport STEAK-LUNA Pair <ExternalLinkIconWrapper />
-          </Link>
+            Astroport  <ExternalLinkIconWrapper />
+          </Link> /
           <Link
-            variant="docs"
-            isExternal={true}
-            href="https://finder.terra.money/mainnet/address/terra1zdpq84j8ex29wz9tmygqtftplrw87x8wmuyfh0rsy60uq7nadtsq5pjr7y"
+              variant="docs"
+              isExternal={true}
+              href="https://finder.terra.money/mainnet/address/terra1zdpq84j8ex29wz9tmygqtftplrw87x8wmuyfh0rsy60uq7nadtsq5pjr7y"
           >
-            TerraSwap STEAK-LUNA Pair <ExternalLinkIconWrapper />
+            TerraSwap <ExternalLinkIconWrapper />
           </Link>
+          )
         </Flex>
       </Box>
     </>
