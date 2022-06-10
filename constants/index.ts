@@ -17,14 +17,16 @@ export const NETWORKS = {
     chainID: "phoenix-1",
     lcd: "https://phoenix-lcd.terra.dev",
     isClassic:false,
-    walletconnectID:1
+    walletconnectID:1,
+    api:"https://phoenix-api.terra.dev"
   },
   testnet: {
     name: "testnet",
     chainID: "pisco-1",
     lcd: "https://pisco-lcd.terra.dev",
     isClassic:false,
-    walletconnectID:0
+    walletconnectID:0,
+    api:"https://pisco-api.terra.dev"
   },
 };
 

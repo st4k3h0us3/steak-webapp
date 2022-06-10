@@ -15,7 +15,7 @@ import {
   PendingBatch,
   StateResponse,
   ConfigResponse,
-  UnbondRequestsByUserResponse,
+  UnbondRequestsByUserResponse, ValidatorPerformanceResponse,
 } from "../types";
 
 export type ValidatorParsed = {
@@ -25,6 +25,22 @@ export type ValidatorParsed = {
   identity: string;
   tokens: number;
   commissionRate: number;
+};
+
+export type ValidatorPerformance = {
+  picture: string;
+  rewards_30d: number;
+};
+
+export type ValidatorParsedPerformance ={
+  operatorAddress: string;
+  isActive: boolean;
+  moniker: string;
+  identity: string;
+  tokens: number;
+  commissionRate: number;
+  picture?: string;
+  rewards_30d?: number;
 };
 
 export type UnbondRequestParsed = {
@@ -54,6 +70,7 @@ export type State = {
   unbondRequests?: UnbondRequestParsed[];
 
   update: (wallet?: ConnectedWallet) => Promise<void>;
+  performance?: Map<String,ValidatorPerformance>;
 };
 
 export const useStore = create<State>((set) => ({
@@ -68,6 +85,7 @@ export const useStore = create<State>((set) => ({
     const network = wallet ? (wallet.network.name as "mainnet" | "testnet") : "mainnet";
 
     const grpcGatewayUrl = NETWORKS[network]["lcd"];
+    const apiGatewayUrl = NETWORKS[network]["api"] || "https://phoenix-api.terra.dev";
 
     const { multiquery, steakHub, steakToken } = CONTRACTS[network];
 
@@ -237,6 +255,20 @@ export const useStore = create<State>((set) => ({
 
     set({ validators });
 
+    // ---------------------------- Validator Performance --------------------------------------
+    const axiosResponseValidatorPerformance = await axios.get<ValidatorPerformanceResponse[]>(
+        `${apiGatewayUrl}/validators`
+    );
+    let performance = new Map<String,ValidatorPerformance> ();
+    axiosResponseValidatorPerformance["data"]
+        .filter((v) => config.validators.includes(v.operator_address))
+        .forEach((v) => {
+            performance.set(v.operator_address,{
+            picture: v.picture,
+            rewards_30d: Number(v.rewards_30d),
+          });
+        });
+    set({ performance });
     // ---------------------------- Process user-dependent query result ----------------------------
 
     if (!wallet) { return; }
