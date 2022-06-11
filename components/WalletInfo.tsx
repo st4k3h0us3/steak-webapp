@@ -52,10 +52,10 @@ const WalletInfo: FC = () => {
             >
               <HStack spacing="2">
                 <Text fontSize="md" color="white">
-                  UST
+                  Luna
                 </Text>
                 <Text fontSize="md" color="white">
-                  {balances ? formatNumber(balances.uusd / 1e6) : "0.00"}
+                  {balances ? formatNumber(balances.uluna / 1e6) : "0.00"}
                 </Text>
               </HStack>
             </Center>
@@ -88,7 +88,7 @@ const WalletInfo: FC = () => {
           </Button>
           <Link
             isExternal
-            href={`https://terrasco.pe/${wallet?.network.name}/address/${wallet?.terraAddress}`}
+            href={`https://finder.terra.money/${wallet?.network.name}/address/${wallet?.terraAddress}`}
             ml="6"
             my="auto"
             textUnderlineOffset="0.3rem"
@@ -96,7 +96,7 @@ const WalletInfo: FC = () => {
             <HStack>
               <ExternalLinkIcon width="1.5rem" height="1.5rem" />
               <Text textStyle="small" variant="dimmed">
-                View on Terrascope
+                View on Finder
               </Text>
             </HStack>
           </Link>

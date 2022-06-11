@@ -11,15 +11,15 @@ const Overview: FC = () => {
 
   const exchangeRate = store.hubState ? store.hubState.exchangeRate : 1;
   const totalLunaLocked = store.hubState ? store.hubState.totalLunaLocked : 0;
-  const totalValueLocked = store.priceLunaUsd ? totalLunaLocked * store.priceLunaUsd : 0;
+ // const totalValueLocked = store.priceLunaUsd ? totalLunaLocked * store.priceLunaUsd : 0;
 
   return (
     <>
       <Header text="Overview" />
       <SimpleGrid minChildWidth="250px" spacing="10px" mb="4">
         <OverviewItem
-          primaryText={"$" + formatNumber(totalValueLocked, 0)}
-          secondaryText={`(${formatNumber(totalLunaLocked, 0)} LUNA)`}
+          primaryText={`(${formatNumber(totalLunaLocked, 0)} LUNA)`}
+          secondaryText="price coming soon"
           additionalText="Total value locked"
         />
         <OverviewItem

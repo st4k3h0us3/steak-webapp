@@ -4,15 +4,16 @@ import { FC } from "react";
 
 import LunaIcon from "./LunaIcon";
 import { formatNumber, formatPercentage } from "../helpers";
-import { ValidatorParsed } from "../store";
+import { ValidatorParsedPerformance} from "../store";
 
-const ValidatorItem: FC<ValidatorParsed> = ({
+const ValidatorItem: FC<ValidatorParsedPerformance> = ({
   operatorAddress,
   identity,
   isActive,
   moniker,
   tokens,
   commissionRate,
+    // rewards_30d
 }) => {
   const wallet = useConnectedWallet();
   const network = wallet?.network.name ?? "mainnet";
@@ -33,7 +34,7 @@ const ValidatorItem: FC<ValidatorParsed> = ({
             }}
           />
           <Link
-            href={`https://terrasco.pe/${network}/validators/${operatorAddress}`}
+            href={`https://finder.terra.money/${network}/validator/${operatorAddress}`}
             isExternal={true}
             mr="1"
             whiteSpace="nowrap"
@@ -65,7 +66,7 @@ const ValidatorItem: FC<ValidatorParsed> = ({
         {formatPercentage(commissionRate)}
       </Td>
       <Td borderBottom="none" py="3" borderRightRadius="2xl">
-        TBD
+         TBD
       </Td>
     </Tr>
   );

@@ -65,7 +65,7 @@ function TxHashText(network: string, txhash: string) {
       </Text>
       <Link
         isExternal
-        href={`https://terrasco.pe/${network}/tx/${txhash}`}
+        href={`https://finder.terra.money/${network}/tx/${txhash}`}
         ml="3"
         mr="auto"
         my="auto"

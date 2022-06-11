@@ -1,6 +1,6 @@
 {
   "name": "steak-webapp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "larry <gm@larry.engineer>",
   "license": "GPL-v3-or-later",
   "scripts": {
@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.8",
-    "@terra-money/terra.js": "^3.0.4",
-    "@terra-money/wallet-provider": "^3.8.1",
+    "@terra-money/terra.js": "=3.1.2",
+    "@terra-money/wallet-provider": "=3.9.4",
     "next": "^12.1.5",
     "react": "^17.0.2",
     "zustand": "^4.0.0-rc.0"

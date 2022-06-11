@@ -8,12 +8,12 @@ const Footer: FC = () => {
         <Box>
           <p style={{ marginBottom: "1rem", fontWeight: 800 }}>About</p>
           <p style={{ marginBottom: "1rem" }}>
-            <Link variant="footer" isExternal={true} href="https://github.com/st4k3h0us3">
+            <Link variant="footer" isExternal={true} href="https://github.com/PFC-developer/steak-webapp">
               GitHub
             </Link>
           </p>
           <p style={{ marginBottom: "1rem" }}>
-            <Link variant="footer" isExternal={true} href="https://twitter.com/st4k3h0us3">
+            <Link variant="footer" isExternal={true} href="https://twitter.com/LiquidSteaking">
               Twitter
             </Link>
           </p>
@@ -22,6 +22,8 @@ const Footer: FC = () => {
               Telegram
             </Link>
           </p>
+          <p>This site is being maintained by <Link variant="footer" isExternal={true} href="https://twitter.com/PFC_Validator">PFC</Link>. There is no relationship with <Link
+          variant="footer" isExternal={true} href="https://twitter.com/Larry0x">@Larry0x</Link></p>
         </Box>
       </Container>
     </Box>

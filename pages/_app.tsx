@@ -6,7 +6,7 @@ import { NETWORKS } from "../constants";
 import Layout from "../components/Layout";
 import theme from "../theme";
 
-const walletNetoworkChainIds: Record<number, NetworkInfo> = {
+const walletNetworkChainIds: Record<number, NetworkInfo> = {
   0: NETWORKS["testnet"],
   1: NETWORKS["mainnet"],
 };
@@ -21,7 +21,7 @@ const SteakApp = ({ Component, pageProps }: AppProps) => {
   );
 
   return typeof window !== "undefined" ? (
-    <WalletProvider defaultNetwork={NETWORKS["mainnet"]} walletConnectChainIds={walletNetoworkChainIds}>
+    <WalletProvider defaultNetwork={NETWORKS["mainnet"]} walletConnectChainIds={walletNetworkChainIds}>
       {main}
     </WalletProvider>
   ) : (

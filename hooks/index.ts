@@ -1,5 +1,5 @@
 import * as constants from "../constants";
-import { useStore } from "../store";
+import {useStore, ValidatorPerformance} from "../store";
 
 export const useConstants = (network?: string) => {
   if (!network) {
@@ -30,6 +30,8 @@ export const usePrices = () => {
 export const useBalances = () => useStore((state) => state.balances);
 
 export const useValidators = () => useStore((state) => state.validators ?? []);
+
+export const useValidatorPerformance = () => useStore((state) => state.performance ?? new Map<String,ValidatorPerformance>());
 
 export const useExchangeRate = () => useStore((state) => state.hubState?.exchangeRate);
 
