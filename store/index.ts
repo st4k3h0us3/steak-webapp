@@ -135,12 +135,14 @@ export const useStore = create<State>((set) => ({
     ];
 
     // These are user-dependent queries; we query them only if a wallet is connected
+
     if (wallet) {
+      const wallet_address = wallet.terraAddress;
       queries = queries.concat([
         {
           bank: {
             balance: {
-              address: wallet.terraAddress,
+              address: wallet_address,
               denom: "uusd",
             },
           },
@@ -148,7 +150,7 @@ export const useStore = create<State>((set) => ({
         {
           bank: {
             balance: {
-              address: wallet.terraAddress,
+              address: wallet_address,
               denom: "uluna",
             },
           },
@@ -159,7 +161,7 @@ export const useStore = create<State>((set) => ({
               contract_addr: steakToken,
               msg: encodeBase64({
                 balance: {
-                  address: wallet.terraAddress,
+                  address:wallet_address,
                 },
               }),
             },
@@ -171,7 +173,7 @@ export const useStore = create<State>((set) => ({
               contract_addr: steakHub,
               msg: encodeBase64({
                 unbond_requests_by_user: {
-                  user: wallet.terraAddress,
+                  user: wallet_address,
                   limit: 30, // we assume the user doesn't have more than 30 outstanding unbonding requests
                 },
               }),
@@ -305,6 +307,7 @@ export const useStore = create<State>((set) => ({
         ids.push(unbondRequest.id);
       }
     }
+    //console.log("unbonding IDS",ids);
 
     const batchesById: { [key: number]: Batch } = {};
     if (ids.length > 0) {
@@ -323,8 +326,14 @@ export const useStore = create<State>((set) => ({
       const axiosResponse2 = await axios.get<ContractStoreResponse<MultiqueryResponse>>(
         `${grpcGatewayUrl}/cosmwasm/wasm/v1/contract/${multiquery}/smart/${queries2}`
       );
+   //   console.log('axios2',`${grpcGatewayUrl}/cosmwasm/wasm/v1/contract/${multiquery}/smart/${queries2}`);
+   //   console.log('axios2r',axiosResponse2["data"]);
+      // @ts-ignore
+      const {data} = axiosResponse2["data"] ;
+     // console.log('batches',data)
 
-      for (const result of axiosResponse2["data"]["query_result"]) {
+      for (const result of data) {
+       // console.log('result',result);
         if (result.success) {
           const batch: Batch = decodeBase64(result.data);
           batchesById[batch.id] = batch;
